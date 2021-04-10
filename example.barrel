@@ -1,0 +1,21 @@
+'Hello world!
+
+This is a barrel program to demonstrate stuff.
+Strings can break across newlines!'^48'
+The accumulator now stands at 'n'.
+The char value of the accumulator is "'p'".'
+-'
+The character coming before numbers (in ASCII) is "'p'".'
+
+This stri'n'g w'a's im'p'licitly 'p'ri'n'ted' up until the
+previous "printed". However, some special characters were
+quoted. Without the quotes, it would look like this:
+
+'This string was implicitly printed.
+
+['Random number: '[|n?a$$'
+Wow, the random number was zero! Very unlikely for that to happen.'$'
+
+Restoring the accumulator from the stack with ]: ']n or "p"
+
+'Doubling some numbers: '^1#a+n [#256-?a$]<15$$
