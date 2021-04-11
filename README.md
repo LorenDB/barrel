@@ -27,4 +27,6 @@ Here is a list of instructions for `barrel`. This list may change at any time. A
 `>N` - same as <N, but jumps forwards instead of backwards  
 `?X$Y$Z$` - if X, then do Y. Otherwise, do Z. X can be 'T'rue or 'F'alse, or a number (read: the accumulator). Y and Z may be empty  
 
+Fraction characters (e.g. "½") will expand to their literal decimal value when entered.
+
 The `barrel` interpreter is written mostly in Qt. Warning: when exiting, the interpreter will probably crash due to a bug relating to threading.
