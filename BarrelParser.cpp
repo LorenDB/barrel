@@ -30,9 +30,7 @@ BarrelParser::BarrelParser(QObject *parent)
 
 void BarrelParser::run(const QString &code)
 {
-    auto output = parseLine(code);
-    if (!output.isEmpty())
-        std::cout << output.toStdString() << "\n";
+     parseLine(code);
     emit done_p();
 }
 
@@ -43,17 +41,12 @@ void BarrelParser::run()
         std::cout << "> ";
         std::string str;
         std::getline(std::cin, str);
-        auto output = parseLine(QString::fromStdString(str));
-
-        if (!output.isEmpty())
-            std::cout << output.toStdString() << "\n";
+        parseLine(QString::fromStdString(str));
     }
 }
 
-QString BarrelParser::parseLine(QString input)
+void BarrelParser::parseLine(QString input)
 {
-    QString output;
-
     for (int i = 0; i < input.length(); ++i)
     {
         // single line commands
@@ -62,17 +55,14 @@ QString BarrelParser::parseLine(QString input)
         else if (input[i] == '-')
             --m_acc;
         else if (input[i] == 'p')
-            output.append(static_cast<char>(m_acc));
+            std::cout << static_cast<char>(m_acc);
         else if (input[i] == 'n')
-            output.append(QString::number(m_acc));
+            std::cout << QString::number(m_acc).toStdString();
         else if (input[i] == '[')
             m_stack.push(m_acc);
 
         else if (input[i] == '!')
-        {
             emit done_p();
-            return output;
-        }
         else if (input[i] == '}')
         {
             if (m_stack.size() > 0)
@@ -87,7 +77,7 @@ QString BarrelParser::parseLine(QString input)
         }
         else if (input[i] == '\'') // string
             for (++i; input[i] != '\'' && i < input.length(); ++i)
-                output.append(input[i]);
+                std::cout << input[i].toLatin1();
 
         // this require numeric parsing (combine all numeric parsing)
         else if (input[i] == '#' || input[i] == '<' || input[i] == '>' || input[i] == '^' || input[i] == '{' || input[i] == '&')
@@ -165,20 +155,20 @@ QString BarrelParser::parseLine(QString input)
             QStringList ops = ifElseString.split('$');
 
             if (ops[0] == 'T')
-                output.append(parseLine(ops[1]));
+                parseLine(ops[1]);
             else if (ops[0] == 'F')
-                output.append(parseLine(ops[2]));
+                parseLine(ops[2]);
             else if (ops[0] == "a")
-                output.append(parseLine(m_acc ? ops[1] : ops[2]));
+                parseLine(m_acc ? ops[1] : ops[2]);
 
             --i;
         }
 
         else // implicitly print unknown characters
-            output.append(input[i]);
-    }
+            std::cout << input[i].toLatin1();
 
-    return output;
+        std::cout << "\n";
+    }
 }
 
 int BarrelParser::getIntFromString(const QString &string, const int &startingIndex)

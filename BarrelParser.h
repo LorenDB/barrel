@@ -22,7 +22,7 @@ signals:
     void done_p();
 
 private:
-    QString parseLine(QString input);
+    void parseLine(QString input);
     int getIntFromString(const QString &string, const int &startingIndex);
 
     /*const*/ QMap<QChar, double> m_numericShortcuts;
