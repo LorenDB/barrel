@@ -8,6 +8,7 @@ BarrelParser::BarrelParser(QObject *parent)
     : QObject(parent)
 {
     m_numericShortcuts[L'½'] = 1 / 2;
+    m_numericShortcuts[L'↉'] = 0;
     m_numericShortcuts[L'⅓'] = 1 / 3;
     m_numericShortcuts[L'⅔'] = 2 / 3;
     m_numericShortcuts[L'¼'] = 1 / 4;
@@ -24,6 +25,7 @@ BarrelParser::BarrelParser(QObject *parent)
     m_numericShortcuts[L'⅝'] = 5 / 8;
     m_numericShortcuts[L'⅞'] = 7 / 8;
     m_numericShortcuts[L'⅑'] = 1 / 9;
+    m_numericShortcuts[L'⅒'] = 1 / 10;
 
     connect(this, &BarrelParser::done_p, this, [this] {
         m_done = true;
