@@ -47,6 +47,8 @@ void BarrelParser::run()
         std::string str;
         std::getline(std::cin, str);
         parseLine(QString::fromStdString(str));
+
+        std::cout << "\n";
     }
 }
 
@@ -174,7 +176,6 @@ void BarrelParser::parseLine(QString input)
         else // implicitly print unknown characters
             std::cout << input[i].toLatin1();
 
-        std::cout << "\n";
     }
 }
 
