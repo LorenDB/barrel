@@ -59,6 +59,8 @@ void BarrelParser::parseLine(QString input)
             ++m_acc;
         else if (input[i] == '-')
             --m_acc;
+        else if (input[i] == L'±')
+            m_acc = -m_acc;
         else if (input[i] == 'p')
             std::cout << static_cast<char>(m_acc);
         else if (input[i] == 'n')

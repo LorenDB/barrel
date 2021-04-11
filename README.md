@@ -8,6 +8,7 @@ Here is a list of instructions for `barrel`. This list may change at any time. A
 
 `+` - increase the accumulator  
 `-` - decrease the accumulator  
+`±` - toggles the sign of the accumulator
 `a` - access the accumulator. This is a valid substitue for an actual number anywhere  
 `d` - access the decimal accumulator. This is a valid substitue for an actual number anywhere  
 `p` - print operator (prints the accumulator as a character value)  
