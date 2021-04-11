@@ -164,7 +164,11 @@ QString BarrelParser::parseLine(QString input)
 
             QStringList ops = ifElseString.split('$');
 
-            if (ops[0] == "a")
+            if (ops[0] == 'T')
+                output.append(parseLine(ops[1]));
+            else if (ops[0] == 'F')
+                output.append(parseLine(ops[2]));
+            else if (ops[0] == "a")
                 output.append(parseLine(m_acc ? ops[1] : ops[2]));
 
             --i;
