@@ -28,7 +28,7 @@ Here is a list of instructions for `barrel`. This list may change at any time. A
 `'z'` - denotes a string literal of value z which will be printed immediately and discarded. May be any length. Escaping a ' in the middle is not allowed. Strings implicitly close (e.g. +++'z implies +++'z')  
 `<N` - jump backwards N characters starting from the <. This does not take into account multi-character instructions (e.g. #3+<1 will not skip back to the #, instead putting +<1 in the instruction queue)  
 `>N` - same as <N, but jumps forwards instead of backwards  
-`?X$Y$Z$` - if X, then do Y. Otherwise, do Z. X can be 'T'rue or 'F'alse, or a number (read: the accumulator). Y and Z may be empty  
+`?X$Y$Z$` - if X, then do Y. Otherwise, do Z. X can be `✓` (True) or `❌` (False), or a number (read: the accumulator). Y and Z may be empty  
 
 Fraction characters (e.g. "½") will expand to their literal decimal value when entered.
 

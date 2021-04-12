@@ -171,9 +171,9 @@ void BarrelParser::parseLine(QString input)
 
             QStringList ops = ifElseString.split('$');
 
-            if (ops[0] == 'T')
+            if (ops[0] == L'✓')
                 parseLine(ops[1]);
-            else if (ops[0] == 'F')
+            else if (ops[0] == L'❌')
                 parseLine(ops[2]);
             else if (ops[0] == "a")
                 parseLine(m_acc ? ops[1] : ops[2]);
