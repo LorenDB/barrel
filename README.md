@@ -14,6 +14,7 @@ Here is a list of instructions for `barrel`. This list may change at any time. A
 `p` - print operator (prints the accumulator as a character value)  
 `n` - print operator (prints the accumulator as an integer value)  
 `√` - if the accumulator is greater than or equal to zero, sets the accumulator to the square root of the accumulator  
+`…` - does nothing; useful for a "continue" statement
 `^N` - set the accumulator to value N  
 `|` - generate a random number  
 `[` - push the accumulator onto the stack  

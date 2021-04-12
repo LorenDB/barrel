@@ -70,8 +70,11 @@ void BarrelParser::parseLine(QString input)
         else if (input[i] == '[')
             m_stack.push(m_acc);
 
+        else if (input[i] == L'…')
+            continue;
         else if (input[i] == '!')
             emit done_p();
+
         else if (input[i] == '}')
         {
             if (m_stack.size() > 0)
