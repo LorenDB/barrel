@@ -84,6 +84,11 @@ void BarrelParser::parseLine(QString input)
             else
                 m_acc = QRandomGenerator64::global()->generate64();
         }
+        else if (input[i] == L'√')
+        {
+            if (m_acc >= 0)
+                m_acc = sqrt(m_acc);
+        }
         else if (input[i] == '\'') // string
             for (++i; input[i] != '\'' && i < input.length(); ++i)
                 std::cout << input[i].toLatin1();
