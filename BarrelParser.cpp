@@ -26,17 +26,13 @@ BarrelParser::BarrelParser(QObject *parent)
     m_numericShortcuts[L'⅞'] = 7 / 8;
     m_numericShortcuts[L'⅑'] = 1 / 9;
     m_numericShortcuts[L'⅒'] = 1 / 10;
-
-    connect(this, &BarrelParser::done_p, this, [this] {
-        m_done = true;
-        emit done();
-    });
 }
 
 void BarrelParser::run(const QString &code)
 {
      parseLine(code);
-    emit done_p();
+     m_done = true; // for completeness' sake; I don't actually think this is necessary
+     emit done();
 }
 
 void BarrelParser::run()
@@ -49,6 +45,8 @@ void BarrelParser::run()
         parseLine(QString::fromStdString(str));
 
         std::cout << "\n";
+        if (m_done)
+            return;
     }
 }
 
@@ -69,11 +67,8 @@ void BarrelParser::parseLine(QString input)
             std::cout << QString::number(m_acc).toStdString();
         else if (input[i] == '[')
             m_stack.push(m_acc);
-
         else if (input[i] == L'…')
             continue;
-        else if (input[i] == '!')
-            emit done_p();
 
         else if (input[i] == '}')
         {
@@ -183,6 +178,12 @@ void BarrelParser::parseLine(QString input)
 
         else // implicitly print unknown characters
             std::cout << input[i].toLatin1();
+        // exit
+        else if (input[i] == '!')
+        {
+            m_done = true;
+            emit done();
+        }
 
     }
 }

@@ -29,12 +29,12 @@ int main(int argc, char *argv[])
 
     BarrelParser parser;
 
-    QThread thread;
+    QThread thread{&a};
     parser.moveToThread(&thread);
     thread.start();
 
-    parser.connect(&parser, &BarrelParser::done, &a, &QCoreApplication::quit);
-    parser.connect(&a, &QCoreApplication::aboutToQuit, &a, [&thread] {
+    QObject::connect(&parser, &BarrelParser::done, &a, &QCoreApplication::quit, Qt::QueuedConnection);
+    QObject::connect(&parser, &BarrelParser::done, &a, [&thread] {
         thread.quit();
         thread.wait();
     });
@@ -49,12 +49,11 @@ int main(int argc, char *argv[])
         else
         {
             std::cerr << QString("Could not open file %1!").arg(optionsParser.value(file)).toStdString();
-            return a.exec();
+            return 0;
         }
     }
     else
         parser.run();
 
-    return 0;
-//    return a.exec();
+    return a.exec();
 }
