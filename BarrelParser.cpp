@@ -1,6 +1,7 @@
 #include "BarrelParser.h"
 
 #include <QRandomGenerator64>
+#include <QtMath>
 
 #include <iostream>
 
@@ -26,6 +27,10 @@ BarrelParser::BarrelParser(QObject *parent)
     m_numericShortcuts[L'⅞'] = 7 / 8;
     m_numericShortcuts[L'⅑'] = 1 / 9;
     m_numericShortcuts[L'⅒'] = 1 / 10;
+    m_numericShortcuts[L'π'] = M_PI;
+    m_numericShortcuts['e'] = M_E;
+    m_numericShortcuts[L'✓'] = true;
+    m_numericShortcuts[L'❌'] = false; // this is NOT an ASCII 'X'
 }
 
 void BarrelParser::run(const QString &code)
@@ -44,14 +49,29 @@ void BarrelParser::run()
         std::getline(std::cin, str);
         parseLine(QString::fromStdString(str));
 
-        std::cout << "\n";
         if (m_done)
             return;
+
+        if (m_hasOutputThisRound)
+        {
+            std::cout << "\n";
+            m_hasOutputThisRound = false;
+        }
     }
 }
 
-void BarrelParser::parseLine(QString input)
+void BarrelParser::parseLine(const QString &input)
 {
+    // index jump targets
+    QVector<int> jumpTargetLocations;
+    if (input.contains(L'¤'))
+    {
+        for (int i = 0; i < input.length(); ++i)
+            if (input[i] == L'¤')
+                jumpTargetLocations.push_back(i);
+    }
+
+    // now parse the command
     for (int i = 0; i < input.length(); ++i)
     {
         // single line commands
@@ -61,13 +81,17 @@ void BarrelParser::parseLine(QString input)
             --m_acc;
         else if (input[i] == L'±')
             m_acc = -m_acc;
+        else if (input[i] == '|')
+            m_acc = QRandomGenerator64::global()->generate64();
         else if (input[i] == 'p')
-            std::cout << static_cast<char>(m_acc);
+            print(static_cast<char>(m_acc));
         else if (input[i] == 'n')
-            std::cout << QString::number(m_acc).toStdString();
+            print(QString::number(static_cast<double>(m_acc)).toStdString());
+        else if (input[i] == L'¶')
+            print("\n");
         else if (input[i] == '[')
             m_stack.push(m_acc);
-        else if (input[i] == L'…')
+        else if (input[i] == L'¤' || input[i] == L'…')
             continue;
 
         else if (input[i] == '}')
@@ -85,99 +109,112 @@ void BarrelParser::parseLine(QString input)
         else if (input[i] == L'√')
         {
             if (m_acc >= 0)
-                m_acc = sqrt(m_acc);
+                m_acc = std::sqrt(m_acc);
         }
         else if (input[i] == '\'') // string
             for (++i; input[i] != '\'' && i < input.length(); ++i)
-                std::cout << input[i].toLatin1();
+                print(input[i].toLatin1());
 
-        // this require numeric parsing (combine all numeric parsing)
-        else if (input[i] == '#' || input[i] == '<' || input[i] == '>' || input[i] == '^' || input[i] == '{' || input[i] == '&')
+        // these require numeric parsing (combine all numeric parsing)
+        else if (input[i] == '#' || input[i] == L'←' || input[i] == L'→' || input[i] == '^' || input[i] == '{' || input[i] == '&')
         {
-            double number;
-            QString numString;
-
-            if (input[i + 1] == 'a')
-            {
-                number = m_acc;
-                numString.append('a'); // give it a length of one for later calculations
-            }
-            else if (input[i + 1] == '|')
-            {
-                number = QRandomGenerator64::global()->generate64();
-                numString = '|';
-            }
-            else if (input[i + 1] == '@')
-            {
-                number = getIntFromString(input, i + 2);
-                numString = QString::number(number).prepend('@');
-                number = m_registers[number];
-            }
-            else if (m_numericShortcuts.keys().contains(input[i + 1]))
-            {
-                number = m_numericShortcuts.value(input[i + 1]); //  [input[i + 1]];
-                numString.append(input[i + 1]);
-            }
-            else
-            {
-                number = getIntFromString(input, i + 1);
-                numString = QString::number(number);
-            }
+            auto numData = getNumberString(input, i + 1);
+            auto number = numData.first;
 
             // parse the command
             if (input[i] == '#')
-                input.replace(i + 1, numString.length() + 1, QString{static_cast<int>(number), input[i + numString.length() + 1]});
-            else if (input[i] == '<')
-                i -= (number);
-            else if (input[i] == '>')
-                i += (number + numString.length() + 1);
+            {
+                parseLine(QString{static_cast<int>(number), input[i + numData.second + 1]});
+                i += numData.second + 1; // get past the number
+            }
+            else if (input[i] == L'←')
+            {
+                // jumps imply pushing a location pointer
+                m_locationPointerStack.push(i);
+
+                int numJumpsFound = 0;
+                for (int j = jumpTargetLocations.length() - 1; j >= 0; --j)
+                {
+                    if (jumpTargetLocations[j] < i) // this is a jump in the right direction
+                        ++numJumpsFound;
+                    if (numJumpsFound == number || j == 0)
+                    {
+                        i = jumpTargetLocations[j];
+                        break;
+                    }
+                }
+            }
+            else if (input[i] == L'→')
+            {
+                m_locationPointerStack.push(i + numData.second); // add the offset for the number length
+
+                int numJumpsFound = 0;
+                for (int j = 0; j < jumpTargetLocations.length(); ++j)
+                {
+                    if (jumpTargetLocations[j] > i) // this is a jump in the right direction
+                        ++numJumpsFound;
+
+                    // either we found what we're looking for, or it's the last function, so we'll jump here
+                    if (numJumpsFound == number || j == jumpTargetLocations.length() - 1)
+                    {
+                        i = jumpTargetLocations[j];
+                        break;
+                    }
+                }
+            }
             else if (input[i] == '^')
             {
                 m_acc = number;
-                i += numString.length();
+                i += numData.second;
             }
             else if (input[i] == '{')
             {
                 m_stack.push(number);
-                i += numString.length();
+                i += numData.second;
             }
             else if (input[i] == '&')
             {
-                auto value = getIntFromString(input, i + numString.length() + 2); // assumes proper grammar -- maybe add validator?
-                m_registers[static_cast<int>(number)] = value;
-                i += numString.length() + QString::number(value).length() + 1;
+                auto value = getNumberString(input, i + numData.second + 2); // assumes proper grammar -- maybe add validator?
+                m_registers[static_cast<int>(number)] = value.first;
+                i += numData.second + value.second + 1;
             }
         }
+
+        // navigating locations
+        else if (input[i] == L'↑')
+        {
+            if (!m_locationPointerStack.isEmpty())
+                i = m_locationPointerStack.pop();
+            else
+            {
+                m_done = true;
+                emit done();
+            }
+        }
+        else if (input[i] == L'↓')
+            m_locationPointerStack.push(i);
 
         // if/else statement
         else if (input[i] == '?')
         {
 //            bool hasEntireIfElse = false;
             QString ifElseString;
-            for (int numDollarSigns = 0; numDollarSigns < 3; ++i)
+            for (int numColons = 0; numColons < 3; ++i)
             {
-                if (input[i] == '$')
-                    ++numDollarSigns;
+                if (input[i] == ':')
+                    ++numColons;
                 ifElseString.append(input[i]);
             }
 
             // delete the ?
             ifElseString.remove(0, 1);
+            QStringList ops = ifElseString.split(':');
+            parseLine(getNumberString(ops[0], 0).first ? ops[1] : ops[2]);
 
-            QStringList ops = ifElseString.split('$');
-
-            if (ops[0] == L'✓')
-                parseLine(ops[1]);
-            else if (ops[0] == L'❌')
-                parseLine(ops[2]);
-            else if (ops[0] == "a")
-                parseLine(m_acc ? ops[1] : ops[2]);
-
+            // this is because i is currently past the end of the if statement, so this will offset the next increment
             --i;
         }
 
-        else // implicitly print unknown characters
-            std::cout << input[i].toLatin1();
         // exit
         else if (input[i] == '!')
         {
@@ -185,23 +222,59 @@ void BarrelParser::parseLine(QString input)
             emit done();
         }
 
+        else // implicitly print unknown characters
+            print(input[i].toLatin1());
     }
 }
 
-int BarrelParser::getIntFromString(const QString &string, const int &startingIndex)
+QPair<long double, int> BarrelParser::getNumberString(const QString &string, const int &startingIndex)
 {
+    if (string[startingIndex] == 'a')
+        return {m_acc, 1};
+    else if (string[startingIndex] == '@')
+    {
+        auto number = getNumberString(string, startingIndex + 1);
+        return {m_registers[static_cast<int>(number.first)], number.second + 1}; // + 1 for the @
+    }
+    else if (m_numericShortcuts.keys().contains(string[startingIndex]))
+        return {m_numericShortcuts.value(string[startingIndex]), 1};
+
     QString numString;
 
     // get the whole number in string format
     for (int i = startingIndex; i < string.length() && string[i].isDigit(); ++i)
         numString.append(string[i]);
 
-    // parse to int
-    int number;
-    bool gotInt = false;
-    number = numString.toInt(&gotInt);
-    if (!gotInt)
+    // verify that this can be numberified
+    bool gotDouble = false;
+    numString.toDouble(&gotDouble);
+    if (!gotDouble)
+        qFatal("Not a number: %s", numString.toStdString().c_str());
+
+    return {numString.toDouble(), numString.length()};
+}
+
+long double BarrelParser::getNumberFromString(const QString &string, const int &startingIndex)
+{
+    QString numString;
+
+    // get the whole number in string format
+    for (int i = startingIndex; i < string.length() && (string[i].isDigit() || string[i] == '.'); ++i)
+        numString.append(string[i]);
+
+    // parse to double
+    long double number;
+    bool gotDouble = false;
+    number = numString.toDouble(&gotDouble);
+    if (!gotDouble)
         qFatal("Not a number: %s", numString.toStdString().c_str());
 
     return number;
+}
+
+template<class T>
+void BarrelParser::print(const T &itemToPrint)
+{
+    std::cout << itemToPrint;
+    m_hasOutputThisRound = true;
 }

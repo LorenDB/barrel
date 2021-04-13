@@ -19,18 +19,29 @@ public:
 
 signals:
     void done();
-    void done_p();
 
 private:
-    void parseLine(QString input);
-    int getIntFromString(const QString &string, const int &startingIndex);
+    void parseLine(const QString &input);
 
-    /*const*/ QMap<QChar, double> m_numericShortcuts;
+    //! This will properly handle special number representatives.
+    QPair<long double, int> getNumberString(const QString &string, const int &startingIndex);
 
-    QStack<double> m_stack;
-    std::array<int, 32> m_registers;
-    double m_acc = 0;
+    //! Call this if you *know* that the string has a number.
+    long double getNumberFromString(const QString &string, const int &startingIndex);
 
+    //! Handle printing things nicely.
+    template <class T> void print(const T &itemToPrint);
+
+    QMap<QChar, long double> m_numericShortcuts;
+    QStack<int> m_locationPointerStack;
+
+    // data storage for the program
+    QStack<long double> m_stack;
+    std::array<long double, 32> m_registers;
+    long double m_acc = 0;
+    bool m_comparisonRegister;
+
+    bool m_hasOutputThisRound = false;
     bool m_done = false;
 };
 
