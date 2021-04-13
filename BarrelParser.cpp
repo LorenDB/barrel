@@ -276,5 +276,6 @@ template<class T>
 void BarrelParser::print(const T &itemToPrint)
 {
     std::cout << itemToPrint;
+    std::cout.flush(); // make sure to print
     m_hasOutputThisRound = true;
 }
