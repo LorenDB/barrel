@@ -68,3 +68,11 @@ As you may have noticed, barrel defines various accessors and constants (`π`, `
 As shown in the command table, barrel has support for jumping to predefined positions. It also supports pushing arbitrary locations to a stack and jumping to them later. This is best used for the equivalent of a function call. For example, take this snippet: `¤#@0+↑` This is a barrel function which will add the value in register 0 to the accumulator. Functions in barrel don't have names; they must be accessed by doing a jump. Therefore, if you have a program that looks like `&0:10→1n¶→1n¶!¤#@0+↑`, it will call the trailing function twice before exiting. The `→` command, of course, implicitly pushes the current location onto the stack. The `↑` command will return execution to the previous point.
 
 You should be careful about getting your function calls right; however, if you try to jump farther than the number of functions you have (`&0:10→1n¶→3n¶!¤#@0+↑`), barrel will jump as far as possible and then stop.
+
+## Control registers
+Barrel has several control registers that are used for controlling how barrell operates. The table below lists all of them. Note that currently barrel does not support setting or accessing them; this will be added later. Right now, the control registers exists solely to make the fuzzy-equality operator (`≈`) work properly.
+
+|Index|Function                                                               |Default value|Read-only|
+|-----|-----------------------------------------------------------------------|-------------|---------|
+|0    |Holds whether barrel should print instructions it doesn't understand.  |`true`       |`false`  |
+|1    |Holds the value for the fuzziness of the fuzzy-equality operator (`≈`).|`3`          |`false`  |
