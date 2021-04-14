@@ -59,6 +59,7 @@ If an instruction does not seem to perform as this table specifies, please ensur
 |`≥N`       |`U+2265`          |Returns whether the accumulator is greater than or equal to N.                  |
 |`≤N`       |`U+2264`          |Returns whether the accumulator is less than or equal to N.                     |
 |`′`        |`U+2032`          |Returns whether the accumulator is a prime number.                              |
+|`¯`        |`U+00AF`          |Accesses the top of the stack.                                                  |
 
 ## Numbers
 As you may have noticed, barrel defines various accessors and constants (`π`, `a`, `@1`, etc.). However, there are other ways of coding in numbers. Fraction characters will expand to their literal decimal value (e.g. `½` expands to `0.5`). Also, if a non-digit is given where a number is expected, e.g. `^T`, barrel will simply use the Unicode value of that character. In the example given in the previous sentence, barrel would push the value `84` into the accumulator since the character `T` has the ASCII value `84`.

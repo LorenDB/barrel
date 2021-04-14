@@ -241,6 +241,8 @@ QPair<long double, int> BarrelParser::getNumberString(const QString &string, con
         auto number = getNumberString(string, startingIndex + 1);
         return {m_registers[static_cast<int>(number.first)], number.second + 1}; // + 1 for the @
     }
+    else if (string[startingIndex] == L'¯')
+        return {m_stack.top(), 1};
     else if (string[startingIndex] == L'′')
     {
         for (int divisor = 2; divisor < m_acc / 2 + 1; ++divisor)
