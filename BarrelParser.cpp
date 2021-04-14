@@ -300,7 +300,7 @@ QPair<long double, int> BarrelParser::getNumberString(const QString &string, con
     bool gotDouble = false;
     numString.toDouble(&gotDouble);
     if (!gotDouble)
-        qFatal("Not a number: %s", numString.toStdString().c_str());
+        return {static_cast<int>(string[startingIndex].toLatin1()), 1}; // return the char's codepoint
 
     return {numString.toDouble(), numString.length()};
 }
