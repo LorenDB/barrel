@@ -26,9 +26,6 @@ private:
     //! This will properly handle special number representatives.
     QPair<long double, int> getNumberString(const QString &string, const int &startingIndex);
 
-    //! Call this if you *know* that the string has a number.
-    long double getNumberFromString(const QString &string, const int &startingIndex);
-
     //! Handle printing things nicely.
     template <class T> void print(const T &itemToPrint);
 
@@ -38,6 +35,7 @@ private:
     // data storage for the program
     QStack<long double> m_stack;
     std::array<long double, 32> m_registers;
+    std::array<long double, 2> m_controlRegisters;
     long double m_acc = 0;
     bool m_comparisonRegister;
 

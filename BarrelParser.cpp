@@ -8,6 +8,7 @@
 BarrelParser::BarrelParser(QObject *parent)
     : QObject(parent)
 {
+    // initalize the numeric shortcuts
     m_numericShortcuts[L'½'] = 1 / 2;
     m_numericShortcuts[L'↉'] = 0;
     m_numericShortcuts[L'⅓'] = 1 / 3;
@@ -31,6 +32,10 @@ BarrelParser::BarrelParser(QObject *parent)
     m_numericShortcuts['e'] = M_E;
     m_numericShortcuts[L'✓'] = true;
     m_numericShortcuts[L'❌'] = false; // this is NOT an ASCII 'X'
+
+    // initialize the control registers
+    m_controlRegisters[0] = true; // output unknown characters
+    m_controlRegisters[1] = 3; // fuzziness of fuzzy comparison
 }
 
 void BarrelParser::run(const QString &code)
@@ -296,24 +301,6 @@ QPair<long double, int> BarrelParser::getNumberString(const QString &string, con
         qFatal("Not a number: %s", numString.toStdString().c_str());
 
     return {numString.toDouble(), numString.length()};
-}
-
-long double BarrelParser::getNumberFromString(const QString &string, const int &startingIndex)
-{
-    QString numString;
-
-    // get the whole number in string format
-    for (int i = startingIndex; i < string.length() && (string[i].isDigit() || string[i] == '.'); ++i)
-        numString.append(string[i]);
-
-    // parse to double
-    long double number;
-    bool gotDouble = false;
-    number = numString.toDouble(&gotDouble);
-    if (!gotDouble)
-        qFatal("Not a number: %s", numString.toStdString().c_str());
-
-    return number;
 }
 
 template<class T>
