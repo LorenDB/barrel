@@ -292,7 +292,6 @@ QPair<long double, int> BarrelParser::getNumberString(const QString &string, con
     QString numString;
 
     // get the whole number in string format
-    for (int i = startingIndex; i < string.length() && string[i].isDigit(); ++i)
     for (int i = startingIndex; i < string.length() && (string[i].isDigit() || string[i] == '.'); ++i)
         numString.append(string[i]);
 
