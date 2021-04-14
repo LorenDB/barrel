@@ -121,7 +121,8 @@ void BarrelParser::parseLine(const QString &input)
                 print(input[i].toLatin1());
 
         // these require numeric parsing (combine all numeric parsing)
-        else if (input[i] == '#' || input[i] == L'←' || input[i] == L'→' || input[i] == '^' || input[i] == '{' || input[i] == '&')
+        else if (input[i] == '#' || input[i] == L'←' || input[i] == L'→' || input[i] == L'↰' || input[i] == L'↱' ||
+                 input[i] == '^' || input[i] == '{' || input[i] == '&')
         {
             auto numData = getNumberString(input, i + 1);
             auto number = numData.first;
@@ -132,10 +133,11 @@ void BarrelParser::parseLine(const QString &input)
                 parseLine(QString{static_cast<int>(number), input[i + numData.second + 1]});
                 i += numData.second + 1; // get past the number
             }
-            else if (input[i] == L'←')
+            else if (input[i] == L'←' || input[i] == L'↰')
             {
-                // jumps imply pushing a location pointer
-                m_locationPointerStack.push(i);
+                // this type of jump implies pushing a location pointer
+                if (input[i] == L'←')
+                    m_locationPointerStack.push(i);
 
                 int numJumpsFound = 0;
                 for (int j = jumpTargetLocations.length() - 1; j >= 0; --j)
@@ -149,9 +151,10 @@ void BarrelParser::parseLine(const QString &input)
                     }
                 }
             }
-            else if (input[i] == L'→')
+            else if (input[i] == L'→' || input[i] == L'↱')
             {
-                m_locationPointerStack.push(i + numData.second); // add the offset for the number length
+                if (input[i] == L'→')
+                    m_locationPointerStack.push(i + numData.second); // add the offset for the number length
 
                 int numJumpsFound = 0;
                 for (int j = 0; j < jumpTargetLocations.length(); ++j)

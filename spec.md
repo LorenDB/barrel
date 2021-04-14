@@ -51,6 +51,8 @@ If an instruction does not seem to perform as this table specifies, please ensur
 |`↑`        |`U+2191`          |Pops the top of the LP stack and goes there.                                    |
 |`→N`       |`U+2192`          |Jumps forward N jump locations after pushing the current location.              |
 |`←N`       |`U+2190`          |Jumps backward N jump locations after pushing the current location.             |
+|`↱N`       |`U+21B1`          |Same as `→N`, but does not push the current location.                           |
+|`↰N`       |`U+21B0`          |Same as `←N`, but does not push the current location.                           |
 |`=N`       |`U+003D`          |Returns whether the accumulator is equal to N.                                  |
 |`≈N`       |`U+2248`          |Returns whether the accumulator is almost equal to N. (See "Control registers.")|
 |`≠N`       |`U+2260`          |Returns whether the accumulator is not equal to N.                              |
