@@ -18,38 +18,46 @@ Below is a list of instructions for barrel. This list may change at any time. An
 
 If an instruction does not seem to perform as this table specifies, please ensure that you are using the correct character—some of the characters in this table look similar to each other, but have different Unicode values. To this end, Unicode values are provided in hexadecimal.
 
-|Instruction|Unicode value     |What it does                                                                  |
-|-----------|------------------|------------------------------------------------------------------------------|
-|`+`        |`U+002B`          |Increases the accumulator.                                                    |
-|`-`        |`U+002D`          |Decreases the accumulator.                                                    |
-|`^N`       |`U+005E`          |Sets the accumulator to value `N`.                                            |
-|`±`        |`U+00B1`          |Toggles the sign of the accumulator.                                          |
-|`√`        |`U+221A`          |Square roots the accumulator if it is not negative.                           |
-|`¶`        |`U+00B6`          |Prints a newline.                                                             |
-|`|`        |`U+007C`          |Sets the accumulator to a random integer value.                               |
-|`…`        |`U+2026`          |Does nothing. Useful for a "continue" statement.                              |
-|`[`        |`U+005B`          |Pushes the accumulator's value onto the stack.                                |
-|`]`        |`U+005D`          |Pops the top of the stack into the accumulator.                               |
-|`{N`       |`U+007B`          |Pushes `N` onto the stack.                                                    |
-|`}`        |`U+007D`          |Pops and discards the top of the stack.                                       |
-|`@N`       |`U+0040`          |Accesses register N.                                                          |
-|`'N'`      |`U+0027`          |Prints a string with value `N`. Strings are self-closing (e.g. `'N` -> `'N'`).|
-|`!`        |`U+0021`          |Exits the program with code `0`.                                              |
-|`#NX`      |`U+0023`          |Runs instruction X N times. X is currently limited to one instruction.        |
-|`n`        |`U+006E`          |Prints the accumulator as a decimal value.                                    |
-|`p`        |`U+0070`          |Prints the accumulator as a character.                                        |
-|`a`        |`U+0061`          |Accesses the accumulator. This is a valid substitute for an acutal number.    |
-|`&N:X`     |`U+0026`, `U+003A`|Sets register N to have a value of `X`.                                       |
-|`?X:Y:Z:`  |`U+003F`, `U+003A`|If X is true, executes Y; otherwise, executes Z. Y and Z may be empty.        |
-|`✓`        |`U+2713`          |Evaluates to `true`.                                                          |
-|`❌`        |`U+274C`          |Evaluates to `false`.                                                         |
-|`π`        |`U+03C0`          |Evaluates to the mathematical constant `pi` (`3.14159...`)                    |
-|`e`        |`U+0065`          |Evaluates to the mathematical constant `e` (`2.718281828...`)                 |
-|`¤`        |`U+00A4`          |Defines a location that can be jumped to.                                     |
-|`↓`        |`U+2193`          |Pushes the current location to the LP stack.                                  |
-|`↑`        |`U+2191`          |Pops the top of the LP stack and goes there.                                  |
-|`→N`       |`U+2192`          |Jumps forward N jump locations after pushing the current location.            |
-|`←N`       |`U+2190`          |Jumps backward N jump locations after pushing the current location.           |
+|Instruction|Unicode value     |What it does                                                                    |
+|-----------|------------------|--------------------------------------------------------------------------------|
+|`+`        |`U+002B`          |Increases the accumulator.                                                      |
+|`-`        |`U+002D`          |Decreases the accumulator.                                                      |
+|`^N`       |`U+005E`          |Sets the accumulator to value `N`.                                              |
+|`±`        |`U+00B1`          |Toggles the sign of the accumulator.                                            |
+|`√`        |`U+221A`          |Square roots the accumulator if it is not negative.                             |
+|`¶`        |`U+00B6`          |Prints a newline.                                                               |
+|`|`        |`U+007C`           |Sets the accumulator to a random integer value.                                 |
+|`…`        |`U+2026`          |Does nothing. Useful for a "continue" statement.                                |
+|`[`        |`U+005B`          |Pushes the accumulator's value onto the stack.                                  |
+|`]`        |`U+005D`          |Pops the top of the stack into the accumulator.                                 |
+|`{N`       |`U+007B`          |Pushes `N` onto the stack.                                                      |
+|`}`        |`U+007D`          |Pops and discards the top of the stack.                                         |
+|`@N`       |`U+0040`          |Accesses register N.                                                            |
+|`'N'`      |`U+0027`          |Prints a string with value `N`. Strings are self-closing (e.g. `'N` -> `'N'`).  |
+|`!`        |`U+0021`          |Exits the program with code `0`.                                                |
+|`#NX`      |`U+0023`          |Runs instruction X N times. X is currently limited to one instruction.          |
+|`n`        |`U+006E`          |Prints the accumulator as a decimal value.                                      |
+|`p`        |`U+0070`          |Prints the accumulator as a character.                                          |
+|`a`        |`U+0061`          |Accesses the accumulator. This is a valid substitute for an acutal number.      |
+|`&N:X`     |`U+0026`, `U+003A`|Sets register N to have a value of `X`.                                         |
+|`?X:Y:Z:`  |`U+003F`, `U+003A`|If X is true, executes Y; otherwise, executes Z. Y and Z may be empty.          |
+|`✓`        |`U+2713`          |Evaluates to `true`.                                                            |
+|`❌`        |`U+274C`          |Evaluates to `false`.                                                           |
+|`π`        |`U+03C0`          |Evaluates to the mathematical constant `pi` (`3.14159...`)                      |
+|`e`        |`U+0065`          |Evaluates to the mathematical constant `e` (`2.718281828...`)                   |
+|`′`        |`U+2032`          |Evaluates primality of the accumulator. Returns `true` or `false`.              |
+|`¤`        |`U+00A4`          |Defines a location that can be jumped to.                                       |
+|`↓`        |`U+2193`          |Pushes the current location to the LP stack.                                    |
+|`↑`        |`U+2191`          |Pops the top of the LP stack and goes there.                                    |
+|`→N`       |`U+2192`          |Jumps forward N jump locations after pushing the current location.              |
+|`←N`       |`U+2190`          |Jumps backward N jump locations after pushing the current location.             |
+|`=N`       |`U+003D`          |Returns whether the accumulator is equal to N.                                  |
+|`≈N`       |`U+2248`          |Returns whether the accumulator is almost equal to N. (See "Control registers.")|
+|`≠N`       |`U+2260`          |Returns whether the accumulator is not equal to N.                              |
+|`>N`       |`U+003E`          |Returns whether the accumulator is greater than N.                              |
+|`<N`       |`U+003C`          |Returns whether the accumulator is less than N.                                 |
+|`≥N`       |`U+2265`          |Returns whether the accumulator is greater than or equal to N.                  |
+|`≤N`       |`U+2264`          |Returns whether the accumulator is less than or equal to N.                     |
 
 ## Numbers
 As you may have noticed, barrel defines various accessors and constants (`π`, `a`, `@1`, etc.). However, there are other ways of coding in numbers. Fraction characters will expand to their literal decimal value (e.g. `½` expands to `0.5`). Also, if a non-digit is given where a number is expected, e.g. `^T`, barrel will simply use the Unicode value of that character. In the example given in the previous sentence, barrel would push the value `84` into the accumulator since the character `T` has the ASCII value `84`.

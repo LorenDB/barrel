@@ -236,6 +236,41 @@ QPair<long double, int> BarrelParser::getNumberString(const QString &string, con
         auto number = getNumberString(string, startingIndex + 1);
         return {m_registers[static_cast<int>(number.first)], number.second + 1}; // + 1 for the @
     }
+    else if (string[startingIndex] == '=')
+    {
+        auto number = getNumberString(string, startingIndex + 1);
+        return {m_acc == number.first, number.second + 1};
+    }
+    else if (string[startingIndex] == L'≈')
+    {
+        auto number = getNumberString(string, startingIndex + 1);
+        return {abs(m_acc - number.first) <= m_controlRegisters[1], number.second + 1};
+    }
+    else if (string[startingIndex] == L'≠')
+    {
+        auto number = getNumberString(string, startingIndex + 1);
+        return {m_acc != number.first, number.second + 1};
+    }
+    else if (string[startingIndex] == '>')
+    {
+        auto number = getNumberString(string, startingIndex + 1);
+        return {m_acc > number.first, number.second + 1};
+    }
+    else if (string[startingIndex] == '<')
+    {
+        auto number = getNumberString(string, startingIndex + 1);
+        return {m_acc < number.first, number.second + 1};
+    }
+    else if (string[startingIndex] == L'≥')
+    {
+        auto number = getNumberString(string, startingIndex + 1);
+        return {m_acc >= number.first, number.second + 1};
+    }
+    else if (string[startingIndex] == L'≤')
+    {
+        auto number = getNumberString(string, startingIndex + 1);
+        return {m_acc <= number.first, number.second + 1};
+    }
     else if (m_numericShortcuts.keys().contains(string[startingIndex]))
         return {m_numericShortcuts.value(string[startingIndex]), 1};
 
