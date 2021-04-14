@@ -26,7 +26,7 @@ If an instruction does not seem to perform as this table specifies, please ensur
 |`±`        |`U+00B1`          |Toggles the sign of the accumulator.                                            |
 |`√`        |`U+221A`          |Square roots the accumulator if it is not negative.                             |
 |`¶`        |`U+00B6`          |Prints a newline.                                                               |
-|`|`        |`U+007C`           |Sets the accumulator to a random integer value.                                 |
+|`|`        |`U+007C`          |Sets the accumulator to a random integer value.                                 |
 |`…`        |`U+2026`          |Does nothing. Useful for a "continue" statement.                                |
 |`[`        |`U+005B`          |Pushes the accumulator's value onto the stack.                                  |
 |`]`        |`U+005D`          |Pops the top of the stack into the accumulator.                                 |
