@@ -75,7 +75,7 @@ void BarrelParser::parseLine(const QString &input)
     }
 
     // now parse the command
-    for (int i = 0; i < input.length(); ++i)
+    for (int i = 0; i < input.length() && !m_done; ++i)
     {
         // single line commands
         if (input[i] == '+')
