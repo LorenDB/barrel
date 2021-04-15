@@ -18,8 +18,10 @@ int main(int argc, char *argv[])
     optionsParser.addHelpOption();
     optionsParser.addVersionOption();
 
-    QCommandLineOption file{QStringList() << "f" << "file",
-                            "File to read data from. If this is not specified, barrel will start in program input mode.",
+    QCommandLineOption file{QStringList() << "f"
+                                          << "file",
+                            QObject::tr("File to read data from. If this is not specified, barrel "
+                                        "will start in program input mode."),
                             "file"};
     optionsParser.addOption(file);
 
@@ -47,7 +49,9 @@ int main(int argc, char *argv[])
         }
         else
         {
-            std::cerr << QString("Could not open file %1!").arg(optionsParser.value(file)).toStdString();
+            std::cerr << QObject::tr("Could not open file %1!")
+                             .arg(optionsParser.value(file))
+                             .toStdString();
             return 0;
         }
     }
