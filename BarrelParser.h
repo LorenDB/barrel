@@ -1,11 +1,10 @@
 #ifndef BARRELPARSER_H
 #define BARRELPARSER_H
 
+#include <QChar>
+#include <QMap>
 #include <QObject>
 #include <QStack>
-#include <QMap>
-#include <QChar>
-
 #include <array>
 
 class BarrelParser : public QObject
@@ -27,7 +26,7 @@ private:
     QPair<long double, int> getNumberString(const QString &string, const int &startingIndex);
 
     //! Handle printing things nicely.
-    template <class T> void print(const T &itemToPrint);
+    template<class T> void print(const T &itemToPrint);
 
     QMap<QChar, long double> m_numericShortcuts;
     QStack<int> m_locationPointerStack;

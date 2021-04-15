@@ -1,12 +1,10 @@
-#include <QCoreApplication>
-#include <QCommandLineParser>
-#include <QRandomGenerator64>
-#include <QFile>
-#include <QThread>
-
-#include <iostream>
-
 #include "BarrelParser.h"
+#include <QCommandLineParser>
+#include <QCoreApplication>
+#include <QFile>
+#include <QRandomGenerator64>
+#include <QThread>
+#include <iostream>
 
 QString parseBarrelInstructionString(QString input);
 
@@ -33,7 +31,8 @@ int main(int argc, char *argv[])
     parser.moveToThread(&thread);
     thread.start();
 
-    QObject::connect(&parser, &BarrelParser::done, &a, &QCoreApplication::quit, Qt::QueuedConnection);
+    QObject::connect(&parser, &BarrelParser::done, &a, &QCoreApplication::quit,
+                     Qt::QueuedConnection);
     QObject::connect(&parser, &BarrelParser::done, &a, [&thread] {
         thread.quit();
         thread.wait();

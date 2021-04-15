@@ -2,11 +2,9 @@
 
 #include <QRandomGenerator64>
 #include <QtMath>
-
 #include <iostream>
 
-BarrelParser::BarrelParser(QObject *parent)
-    : QObject(parent)
+BarrelParser::BarrelParser(QObject *parent) : QObject(parent)
 {
     // initalize the numeric shortcuts
     m_numericShortcuts[L'½'] = 1 / 2;
@@ -40,9 +38,9 @@ BarrelParser::BarrelParser(QObject *parent)
 
 void BarrelParser::run(const QString &code)
 {
-     parseLine(code);
-     m_done = true; // for completeness' sake; I don't actually think this is necessary
-     emit done();
+    parseLine(code);
+    m_done = true; // for completeness' sake; I don't actually think this is necessary
+    emit done();
 }
 
 void BarrelParser::run()
@@ -121,8 +119,8 @@ void BarrelParser::parseLine(const QString &input)
                 print(input[i].toLatin1());
 
         // these require numeric parsing (combine all numeric parsing)
-        else if (input[i] == '#' || input[i] == L'←' || input[i] == L'→' || input[i] == L'↰' || input[i] == L'↱' ||
-                 input[i] == '^' || input[i] == '{' || input[i] == '&')
+        else if (input[i] == '#' || input[i] == L'←' || input[i] == L'→' || input[i] == L'↰' ||
+                 input[i] == L'↱' || input[i] == '^' || input[i] == '{' || input[i] == '&')
         {
             auto numData = getNumberString(input, i + 1);
             auto number = numData.first;
@@ -154,7 +152,8 @@ void BarrelParser::parseLine(const QString &input)
             else if (input[i] == L'→' || input[i] == L'↱')
             {
                 if (input[i] == L'→')
-                    m_locationPointerStack.push(i + numData.second); // add the offset for the number length
+                    m_locationPointerStack.push(i + numData.second); // add the offset for the
+                                                                     // number length
 
                 int numJumpsFound = 0;
                 for (int j = 0; j < jumpTargetLocations.length(); ++j)
@@ -162,7 +161,8 @@ void BarrelParser::parseLine(const QString &input)
                     if (jumpTargetLocations[j] > i) // this is a jump in the right direction
                         ++numJumpsFound;
 
-                    // either we found what we're looking for, or it's the last function, so we'll jump here
+                    // either we found what we're looking for, or it's the last function, so we'll
+                    // jump here
                     if (numJumpsFound == number || j == jumpTargetLocations.length() - 1)
                     {
                         i = jumpTargetLocations[j];
@@ -182,7 +182,9 @@ void BarrelParser::parseLine(const QString &input)
             }
             else if (input[i] == '&')
             {
-                auto value = getNumberString(input, i + numData.second + 2); // assumes proper grammar -- maybe add validator?
+                auto value = getNumberString(input, i + numData.second + 2); // assumes proper
+                                                                             // grammar -- maybe add
+                                                                             // validator?
                 m_registers[static_cast<int>(number)] = value.first;
                 i += numData.second + value.second + 1;
             }
@@ -205,7 +207,6 @@ void BarrelParser::parseLine(const QString &input)
         // if/else statement
         else if (input[i] == '?')
         {
-//            bool hasEntireIfElse = false;
             QString ifElseString;
             for (int numColons = 0; numColons < 3; ++i)
             {
@@ -219,7 +220,8 @@ void BarrelParser::parseLine(const QString &input)
             QStringList ops = ifElseString.split(':');
             parseLine(getNumberString(ops[0], 0).first ? ops[1] : ops[2]);
 
-            // this is because i is currently past the end of the if statement, so this will offset the next increment
+            // this is because i is currently past the end of the if statement, so this will offset
+            // the next increment
             --i;
         }
 
@@ -235,7 +237,8 @@ void BarrelParser::parseLine(const QString &input)
     }
 }
 
-QPair<long double, int> BarrelParser::getNumberString(const QString &string, const int &startingIndex)
+QPair<long double, int> BarrelParser::getNumberString(const QString &string,
+                                                      const int &startingIndex)
 {
     if (string[startingIndex] == 'a')
         return {m_acc, 1};
@@ -295,20 +298,21 @@ QPair<long double, int> BarrelParser::getNumberString(const QString &string, con
     QString numString;
 
     // get the whole number in string format
-    for (int i = startingIndex; i < string.length() && (string[i].isDigit() || string[i] == '.'); ++i)
+    for (int i = startingIndex; i < string.length() && (string[i].isDigit() || string[i] == '.');
+         ++i)
         numString.append(string[i]);
 
     // verify that this can be numberified
     bool gotDouble = false;
     numString.toDouble(&gotDouble);
     if (!gotDouble)
-        return {static_cast<int>(string[startingIndex].toLatin1()), 1}; // return the char's codepoint
+        return {static_cast<int>(string[startingIndex].toLatin1()), 1}; // return the char's
+                                                                        // codepoint
 
     return {numString.toDouble(), numString.length()};
 }
 
-template<class T>
-void BarrelParser::print(const T &itemToPrint)
+template<class T> void BarrelParser::print(const T &itemToPrint)
 {
     std::cout << itemToPrint;
     std::cout.flush(); // make sure to print
