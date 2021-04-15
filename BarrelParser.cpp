@@ -237,8 +237,7 @@ void BarrelParser::parseLine(const QString &input)
     }
 }
 
-QPair<long double, int> BarrelParser::getNumberString(const QString &string,
-                                                      const int &startingIndex)
+QPair<double, int> BarrelParser::getNumberString(const QString &string, const int &startingIndex)
 {
     if (string[startingIndex] == 'a')
         return {m_acc, 1};

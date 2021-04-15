@@ -2,7 +2,7 @@
 `barrel` is a simple, Turing-incomplete (probably) language with simple instructions. Barrel programs have access to a decimal accumulator, a decimal stack, 32 decimal registers, and a random number generator. Furthermore, barrel has good support for functions. Barrel programs can also output various values, but cannot currently input anything.
 
 ## Definitions
-Decimal numbers shall be defined to be equivalent to a C++ `long double`. This allows a large range of values to be used in barrel.
+Decimal numbers shall be defined to be equivalent to a C++ `double`. This allows a large range of values to be used in barrel.
 
 ## The accumulator
 The accumulator is the heart of a barrel program's calculations. It is the only method of performing mathematical operations on a number, and normally stores the value that is being manipulated or examined. The accumulator may be incremented, decremented, added to, subtracted from, multiplied, divided, squared, square-rooted, negated, bitwise-shifted, equality-compared, primality-tested, and otherwise modified and accessed. The accumulator can store decimal numbers or integers.
