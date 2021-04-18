@@ -13,9 +13,9 @@ quoted. Without the quotes, it would look like this:
 
 'This string was implicitly printed.
 
-['Random number: '[|n?a$$'
-Wow, the random number was zero! Very unlikely for that to happen.'$'
+['Random number: '[|n?a::'
+Wow, the random number was zero! Very unlikely for that to happen.':'
 
 Restoring the accumulator from the stack with ]: ']n or "p"
 
-'Doubling some numbers: '^1#a+n [#256-?a$]<15$$
+'Doubling some numbers: '^1¤#a+n ?<256:←1::
