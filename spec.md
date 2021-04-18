@@ -60,7 +60,6 @@ If an instruction does not seem to perform as this table specifies, please ensur
 |`<N`       |`U+003C`          |Returns whether the accumulator is less than N.                                 |
 |`≥N`       |`U+2265`          |Returns whether the accumulator is greater than or equal to N.                  |
 |`≤N`       |`U+2264`          |Returns whether the accumulator is less than or equal to N.                     |
-|`′`        |`U+2032`          |Returns whether the accumulator is a prime number.                              |
 |`¯`        |`U+00AF`          |Accesses the top of the stack.                                                  |
 
 ## Numbers
