@@ -271,6 +271,11 @@ QPair<double, int> BarrelParser::getNumberString(const QString &string, const in
         auto number = getNumberString(string, startingIndex + 1);
         return {m_acc != number.first, number.second + 1};
     }
+    else if (string[startingIndex] == L'≉')
+    {
+        auto number = getNumberString(string, startingIndex + 1);
+        return {!(abs(m_acc - number.first) <= m_controlRegisters[1]), number.second + 1};
+    }
     else if (string[startingIndex] == '>')
     {
         auto number = getNumberString(string, startingIndex + 1);
