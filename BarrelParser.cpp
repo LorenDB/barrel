@@ -94,6 +94,8 @@ void BarrelParser::parseLine(const QString &input)
             print("\n");
         else if (input[i] == '[')
             m_stack.push(m_acc);
+        else if (input[i] == L'⅟')
+            m_acc = 1 / m_acc;
         else if (input[i] == L'¤' || input[i] == L'…')
             continue;
 
