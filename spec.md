@@ -63,17 +63,20 @@ If an instruction does not seem to perform as this table specifies, please ensur
 |`≤N`       |`U+2264`          |Returns whether the accumulator is less than or equal to N.                         |
 |`¯`        |`U+00AF`          |Accesses the top of the stack.                                                      |
 |`⅟`        |`U+215F`          |Reciprocates the accumulator (1 / accumulator).                                     |
+|`(XYZ)`    |`U+0028, U+0029`  |Creates a single instruction or code block out of the instructions `XYZ`.           |
 
 ## Numbers
-As you may have noticed, barrel defines various accessors and constants (`π`, `a`, `@1`, etc.). However, there are other ways of coding in numbers. Fraction characters will expand to their literal decimal value (e.g. `½` expands to `0.5`). Also, if a non-digit is given where a number is expected, e.g. `^T`, barrel will simply use the Unicode value of that character. In the example given in the previous sentence, barrel would push the value `84` into the accumulator since the character `T` has the ASCII value `84`.
+As you may have noticed, barrel defines various accessors and constants (`π`, `a`, `@1`, etc.). However, there are other ways of coding in numbers. Fraction characters will expand to their literal decimal value (e.g. `½` expands to `0.5`). If a fraction character does not exist for a certain fraction, you can use the `⅟` command to create the desired fraction.
 
 ## Jumping
 As shown in the command table, barrel has support for jumping to predefined positions. It also supports pushing arbitrary locations to a stack and jumping to them later. This is best used for the equivalent of a function call. For example, take this snippet: `¤#@0+↑` This is a barrel function which will add the value in register 0 to the accumulator. Functions in barrel don't have names; they must be accessed by doing a jump. Therefore, if you have a program that looks like `&0:10→1n¶→1n¶!¤#@0+↑`, it will call the trailing function twice before exiting. The `→` command, of course, implicitly pushes the current location onto the stack. The `↑` command will return execution to the previous point.
 
-You should be careful about getting your function calls right; however, if you try to jump farther than the number of functions you have (`&0:10→1n¶→3n¶!¤#@0+↑`), barrel will jump as far as possible and then stop.
+You should be careful about getting your function calls right; however, if you try to jump farther than the number of functions you have (`&0:10→1n¶→3n¶!¤#@0+↑`), barrel will jump as far as possible and then stop. This behavior also means that if you execute a statement like `^65n↰1nnn`, the jump effectively becomes a no-op statement.
+
+Currently, you are not allowed to jump into or out of a code block. This means that in the snippet `¤+(¤++↰2)↰1`, the first jump will jump to the `¤` in the `` block and the second jump will jump to the `¤` at the beginning of the snippet.
 
 ## Control registers
-Barrel has several control registers that are used for controlling how barrell operates. The table below lists all of them. Note that currently barrel does not support setting or accessing them; this will be added later. Right now, the control registers exists solely to make the fuzzy-equality operator (`≈`) work properly.
+Barrel has several control registers that are used for controlling how barrel operates. The table below lists all of them. Note that currently barrel does not support setting or accessing them; this will be added later. Right now, the control registers exist solely to make the fuzzy-equality operator (`≈`) work properly. However, control register 0 has also been added as a future method of modifying the barrel runtime.
 
 |Index|Function                                                               |Default value|Read-only|
 |-----|-----------------------------------------------------------------------|-------------|---------|
