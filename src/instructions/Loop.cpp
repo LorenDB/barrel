@@ -11,11 +11,19 @@ Loop::Loop(InstructionNode *times, InstructionNode *body, BarrelParser &parser)
 
 QVariant Loop::exec()
 {
-    // make sure we only bother calculating the times once per execution
-    auto times = m_times->exec().toInt();
+    if (dynamic_cast<Infinity *>(m_times))
+    {
+        while (true)
+            m_body->exec();
+    }
+    else
+    {
+        // make sure we only bother calculating the times once per execution
+        auto times = m_times->exec().toInt();
 
-    for (int i = 0; i < times; ++i)
-        m_body->exec();
+        for (int i = 0; i < times; ++i)
+            m_body->exec();
+    }
 
     return {};
 }

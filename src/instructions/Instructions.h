@@ -13,6 +13,7 @@
 #include "GreaterThanEqualTo.h"
 #include "IfElse.h"
 #include "IncrementAccumulator.h"
+#include "Infinity.h"
 #include "InstructionChain.h"
 #include "InstructionNode.h"
 #include "JumpStatement.h"

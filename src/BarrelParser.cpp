@@ -158,6 +158,11 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
         input.remove(0, 1);
         return new ReciprocateAccumulator{*this};
     }
+    else if (input[0] == L'∞')
+    {
+        input.remove(0, 1);
+        return new Infinity{*this};
+    }
     else if (input[0] == L'¤')
     {
         input.remove(0, 1);
@@ -434,6 +439,11 @@ QPair<InstructionNode *, int> BarrelParser::getNumberNode(QString &input)
     {
         input.remove(0, 1);
         return {new AccumulatorAccessor{*this}, 1};
+    }
+    else if (input[0] == L'∞')
+    {
+        input.remove(0, 1);
+        return {new Infinity{*this}, 1};
     }
     else if (input[0] == '@')
     {

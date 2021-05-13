@@ -64,6 +64,7 @@ If an instruction does not seem to perform as this table specifies, please ensur
 |`¯`        |`U+00AF`          |Accesses the top of the stack.                                                      |
 |`⅟`        |`U+215F`          |Reciprocates the accumulator (1 / accumulator).                                     |
 |`(XYZ)`    |`U+0028, U+0029`  |Creates a single instruction or code block out of the instructions `XYZ`.           |
+|`∞`        |`U+221E`          |If in a loop (e.g. `#∞+`), loops forever. Otherwise, returns infinity.              |
 
 ## Numbers
 As you may have noticed, barrel defines various accessors and constants (`π`, `a`, `@1`, etc.). However, there are other ways of coding in numbers. Fraction characters will expand to their literal decimal value (e.g. `½` expands to `0.5`). If a fraction character does not exist for a certain fraction, you can use the `⅟` command to create the desired fraction.

@@ -30,6 +30,7 @@ add_executable(barrel
     src/instructions/GreaterThanEqualTo.cpp
     src/instructions/IfElse.cpp
     src/instructions/IncrementAccumulator.cpp
+    src/instructions/Infinity.cpp
     src/instructions/InstructionChain.cpp
     src/instructions/InstructionNode.cpp
     src/instructions/JumpStatement.cpp
