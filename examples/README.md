@@ -1,2 +1,4 @@
 # Barrel examples
-This directory contains examples of barrel code, along with explanations in correspondingly-named files. For example, the Fibonacci numbers example in `fibonacci.barrel` has an explanation located in `fibonacci-explanation.txt`. All `.barrel` files can be run with the barrel interpreter by running `barrel -f file.barrel` where `file.barrel` is the file you want to run.
+Each of the examples in this folder is located in its own subdirectory and has a corresponding .md file explaining what the example does.
+
+Many or all of these examples were taken from my code golfing attempts with barrel at the [Code Golf Stack Exchange](codegolf.stackexchange.com).
