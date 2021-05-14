@@ -44,7 +44,7 @@ If an instruction does not seem to perform as this table specifies, please ensur
 |`p`        |`U+0070`          |Prints the accumulator as a character.                                              |
 |`a`        |`U+0061`          |Accesses the accumulator. This is a valid substitute for an acutal number.          |
 |`&N:X`     |`U+0026`, `U+003A`|Sets register N to have a value of `X`.                                             |
-|`?X:Y:Z:`  |`U+003F`, `U+003A`|If X is true, executes Y; otherwise, executes Z. Y and Z may be empty.              |
+|`?X:Y:Z:`  |`U+003F`, `U+003A`|If X is true, executes Y; otherwise, executes Z. Y and Z may be empty. Self-closing.|
 |`✓`        |`U+2713`          |Evaluates to `true`.                                                                |
 |`❌`        |`U+274C`          |Evaluates to `false`.                                                               |
 |`π`        |`U+03C0`          |Evaluates to the mathematical constant `pi` (`3.14159...`)                          |

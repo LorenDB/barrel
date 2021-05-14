@@ -398,7 +398,7 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
         input.remove(0, 1);
 
         QString ifElseString;
-        for (int numColons = 0, i = 0; numColons < 3; ++i)
+        for (int numColons = 0, i = 0; numColons < 3 && i < input.length(); ++i)
         {
             if (input[i] == ':')
                 ++numColons;
