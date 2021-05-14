@@ -453,7 +453,6 @@ QPair<InstructionNode *, int> BarrelParser::getNumberNode(QString &input)
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return {new RegisterAccessor{number.first, *this}, number.second};
     }
     else if (input[0] == L'¯')
