@@ -16,8 +16,11 @@ find_package(Qt5 COMPONENTS Core LinguistTools REQUIRED)
 set(TS_FILES barrel_en_US.ts)
 
 add_executable(barrel
-    src/instructions/AccumulatorAccessor.cpp
+    src/main.cpp
+
     src/BarrelParser.cpp
+
+    src/instructions/AccumulatorAccessor.cpp
     src/instructions/BarrelString.cpp
     src/instructions/ContinueStatement.cpp
     src/instructions/DecrementAccumulator.cpp
@@ -38,7 +41,6 @@ add_executable(barrel
     src/instructions/LessThan.cpp
     src/instructions/LessThanEqualTo.cpp
     src/instructions/Loop.cpp
-    src/main.cpp
     src/instructions/NegateAccumulator.cpp
     src/instructions/NotEqualTo.cpp
     src/instructions/Number.cpp
@@ -56,6 +58,7 @@ add_executable(barrel
     src/instructions/SetRegister.cpp
     src/instructions/SquareRootAcc.cpp
     src/instructions/StackAccessor.cpp
+
     ${TS_FILES}
 )
 target_link_libraries(barrel Qt5::Core)
