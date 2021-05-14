@@ -22,7 +22,11 @@ If an instruction does not seem to perform as this table specifies, please ensur
 |-----------|------------------|------------------------------------------------------------------------------------|
 |`+`        |`U+002B`          |Increases the accumulator.                                                          |
 |`-`        |`U+002D`          |Decreases the accumulator.                                                          |
+|`×N`       |`U+00D7`          |Multiplies the accumulator by N.                                                    |
+|`÷N`       |`U+00F7`          |Divides the accumulator by N.                                                       |
 |`^N`       |`U+005E`          |Sets the accumulator to value `N`.                                                  |
+|`«N`       |`U+00AB`          |Shifts the integer value of the accumulator `N` places to the left.                 |
+|`»N`       |`U+00BB`          |Shifts the integer value of the accumulator `N` places to the right.                |
 |`±`        |`U+00B1`          |Toggles the sign of the accumulator.                                                |
 |`√`        |`U+221A`          |Square roots the accumulator if it is not negative.                                 |
 |`¶`        |`U+00B6`          |Prints a newline.                                                                   |

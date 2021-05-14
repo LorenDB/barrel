@@ -22,8 +22,10 @@ add_executable(barrel
 
     src/instructions/AccumulatorAccessor.cpp
     src/instructions/BarrelString.cpp
+    src/instructions/BitShift.cpp
     src/instructions/ContinueStatement.cpp
     src/instructions/DecrementAccumulator.cpp
+    src/instructions/DivideStatement.cpp
     src/instructions/EqualityOperation.cpp
     src/instructions/EqualTo.cpp
     src/instructions/ExitStatement.cpp
@@ -41,6 +43,7 @@ add_executable(barrel
     src/instructions/LessThan.cpp
     src/instructions/LessThanEqualTo.cpp
     src/instructions/Loop.cpp
+    src/instructions/MultiplyStatement.cpp
     src/instructions/NegateAccumulator.cpp
     src/instructions/NotEqualTo.cpp
     src/instructions/Number.cpp

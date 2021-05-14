@@ -3,8 +3,10 @@
 
 #include "AccumulatorAccessor.h"
 #include "BarrelString.h"
+#include "BitShift.h"
 #include "ContinueStatement.h"
 #include "DecrementAccumulator.h"
+#include "DivideStatement.h"
 #include "EqualTo.h"
 #include "ExitStatement.h"
 #include "FuzzyEqualTo.h"
@@ -21,6 +23,7 @@
 #include "LessThan.h"
 #include "LessThanEqualTo.h"
 #include "Loop.h"
+#include "MultiplyStatement.h"
 #include "NegateAccumulator.h"
 #include "NotEqualTo.h"
 #include "Number.h"

@@ -207,7 +207,8 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
     }
     // these require numeric parsing (combine all numeric parsing)
     else if (input[0] == '#' || input[0] == L'←' || input[0] == L'→' || input[0] == L'↰' ||
-             input[0] == L'↱' || input[0] == '^' || input[0] == '{' || input[0] == '&')
+             input[0] == L'↱' || input[0] == '^' || input[0] == '{' || input[0] == '&' ||
+             input[0] == L'×' || input[0] == L'÷' || input[0] == L'«' || input[0] == L'»')
     {
         auto command = input.at(0); // save the command so we don't lose it due to the input string
                                     // chomping
@@ -218,7 +219,6 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
         if (command == '#')
         {
             auto body = getInstructionNode(input);
-
             return new Loop{numData.first, body, *this};
         }
         else if (command == L'←' || command == L'↰')
@@ -246,13 +246,9 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
                 return new JumpStatement{numData.first, JumpStatement::Forwards, *this};
         }
         else if (command == '^')
-        {
             return new SetAccumulator{numData.first, *this};
-        }
         else if (command == '{')
-        {
             return new PushToStack{numData.first, *this};
-        }
         else if (command == '&')
         {
             if (input[0] != ':')
@@ -262,6 +258,14 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
             auto val = getNumberNode(input);
             return new SetRegister{numData.first, val.first, *this};
         }
+        else if (command == L'×')
+            return new MultiplyStatement{numData.first, *this};
+        else if (command == L'÷')
+            return new DivideStatement{numData.first, *this};
+        else if (command == L'«')
+            return new BitShift{numData.first, BitShift::Left, *this};
+        else if (command == L'»')
+            return new BitShift{numData.first, BitShift::Right, *this};
         else // TODO: handle this more gracefully
             qFatal("Error: somehow the character \'%c\' got parsed where it shouldn't have.",
                    input[0].toLatin1());
