@@ -280,7 +280,6 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new RegisterAccessor{number, *this};
     }
     else if (input[0] == L'¯')
@@ -297,56 +296,48 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new EqualTo{number, *this};
     }
     else if (input[0] == L'≈')
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new FuzzyEqualTo{number, *this};
     }
     else if (input[0] == L'≠')
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new NotEqualTo{number, *this};
     }
     else if (input[0] == L'≉')
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new FuzzyNotEqualTo{number, *this};
     }
     else if (input[0] == '>')
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new GreaterThan{number, *this};
     }
     else if (input[0] == '<')
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new LessThan{number, *this};
     }
     else if (input[0] == L'≥')
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new GreaterThanEqualTo{number, *this};
     }
     else if (input[0] == L'≤')
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new LessThanEqualTo{number, *this};
     }
     else if (m_numericShortcuts.keys().contains(input.at(0)))
@@ -469,42 +460,36 @@ InstructionNode *BarrelParser::getNumberNode(QString &input)
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new EqualTo{number, *this};
     }
     else if (input[0] == L'≈')
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new FuzzyEqualTo{number, *this};
     }
     else if (input[0] == L'≠')
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new NotEqualTo{number, *this};
     }
     else if (input[0] == L'≉')
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new FuzzyNotEqualTo{number, *this};
     }
     else if (input[0] == '>')
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new GreaterThan{number, *this};
     }
     else if (input[0] == '<')
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new LessThan{number, *this};
     }
     else if (input[0] == L'≥')
@@ -517,7 +502,6 @@ InstructionNode *BarrelParser::getNumberNode(QString &input)
     {
         input.remove(0, 1);
         auto number = getNumberNode(input);
-        input.remove(0, number.second);
         return new LessThanEqualTo{number, *this};
     }
     else if (m_numericShortcuts.keys().contains(input.at(0)))
