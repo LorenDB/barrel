@@ -1,6 +1,6 @@
 #include "InstructionNode.h"
 
-#include <qvariant.h>
+#include <QVariant>
 
 InstructionNode::InstructionNode(BarrelParser &parser) : m_parser{&parser} {}
 
