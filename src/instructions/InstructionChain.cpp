@@ -26,7 +26,6 @@ QVariant InstructionChain::exec()
 {
     QVariant retVal;
 
-    // TODO: execute the instruction chain here
     for (m_execLocation = 0; m_execLocation < m_instructionChain.length() && !m_parser->isDone();
          ++m_execLocation)
         retVal = m_instructionChain[m_execLocation]->exec();
