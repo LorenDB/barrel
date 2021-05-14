@@ -64,7 +64,8 @@ void InstructionChain::jump(int numSpaces)
 
 void InstructionChain::jumpForwards(int numSpaces)
 {
-    for (int i = m_execLocation, numJumps = 0; numJumps < numSpaces; ++i)
+    for (int i = m_execLocation, numJumps = 0;
+         i < m_instructionChain.length() && numJumps < numSpaces; ++i)
     {
         if (dynamic_cast<JumpTarget *>(m_instructionChain[i]))
         {
@@ -76,7 +77,7 @@ void InstructionChain::jumpForwards(int numSpaces)
 
 void InstructionChain::jumpBackwards(int numSpaces)
 {
-    for (int i = m_execLocation, numJumps = 0; numJumps < numSpaces; --i)
+    for (int i = m_execLocation, numJumps = 0; i > 0 && numJumps < numSpaces; --i)
     {
         if (dynamic_cast<JumpTarget *>(m_instructionChain[i]))
         {
