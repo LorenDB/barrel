@@ -189,88 +189,6 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
         input.remove(0, 1);
         return new RaiseAccToPower{new Number{m_exponentShortcuts[shortcut], *this}, *this};
     }
-
-    else if (input[0] == '\'') // string
-    {
-        QString string;
-        input.remove(0, 1);
-
-        for (int i = 0; input[i] != '\'' && i < input.length(); ++i)
-            string.append(input[i]);
-
-        input.remove(0, string.length());
-
-        if (string.length() > 0) // this means that there is a terminating ' left
-            input.remove(0, 1);
-
-        return new BarrelString{string, *this};
-    }
-    // these require numeric parsing (combine all numeric parsing)
-    else if (input[0] == '#' || input[0] == L'←' || input[0] == L'→' || input[0] == L'↰' ||
-             input[0] == L'↱' || input[0] == '^' || input[0] == '{' || input[0] == '&' ||
-             input[0] == L'×' || input[0] == L'÷' || input[0] == L'«' || input[0] == L'»')
-    {
-        auto command = input.at(0); // save the command so we don't lose it due to the input string
-                                    // chomping
-        input.remove(0, 1);
-        auto numData = getNumberNode(input);
-
-        // parse the command
-        if (command == '#')
-        {
-            auto body = getInstructionNode(input);
-            return new Loop{numData.first, body, *this};
-        }
-        else if (command == L'←' || command == L'↰')
-        {
-            if (command == L'←')
-            {
-                auto chain = new InstructionChain{*this};
-                chain->addNode(new PushLocationPointer{*this});
-                chain->addNode(new JumpStatement{numData.first, JumpStatement::Backwards, *this});
-                return chain;
-            }
-            else
-                return new JumpStatement{numData.first, JumpStatement::Backwards, *this};
-        }
-        else if (command == L'→' || command == L'↱')
-        {
-            if (command == L'→')
-            {
-                auto chain = new InstructionChain{*this};
-                chain->addNode(new PushLocationPointer{*this});
-                chain->addNode(new JumpStatement{numData.first, JumpStatement::Forwards, *this});
-                return chain;
-            }
-            else
-                return new JumpStatement{numData.first, JumpStatement::Forwards, *this};
-        }
-        else if (command == '^')
-            return new SetAccumulator{numData.first, *this};
-        else if (command == '{')
-            return new PushToStack{numData.first, *this};
-        else if (command == '&')
-        {
-            if (input[0] != ':')
-                ; // TODO: CRASH AND BURN
-
-            input.remove(0, 1);
-            auto val = getNumberNode(input);
-            return new SetRegister{numData.first, val.first, *this};
-        }
-        else if (command == L'×')
-            return new MultiplyStatement{numData.first, *this};
-        else if (command == L'÷')
-            return new DivideStatement{numData.first, *this};
-        else if (command == L'«')
-            return new BitShift{numData.first, BitShift::Left, *this};
-        else if (command == L'»')
-            return new BitShift{numData.first, BitShift::Right, *this};
-        else // TODO: handle this more gracefully
-            qFatal("Error: somehow the character \'%c\' got parsed where it shouldn't have.",
-                   input[0].toLatin1());
-    }
-
     else if (input[0] == 'a')
     {
         input.remove(0, 1);
@@ -354,6 +272,90 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
             chain->addNode(getInstructionNode(input));
         return chain;
     }
+
+    // string
+    else if (input[0] == '\'')
+    {
+        QString string;
+        input.remove(0, 1);
+
+        for (int i = 0; input[i] != '\'' && i < input.length(); ++i)
+            string.append(input[i]);
+
+        input.remove(0, string.length());
+
+        if (string.length() > 0) // this means that there is a terminating ' left
+            input.remove(0, 1);
+
+        return new BarrelString{string, *this};
+    }
+
+    // these require numeric parsing (combine all numeric parsing)
+    else if (input[0] == '#' || input[0] == L'←' || input[0] == L'→' || input[0] == L'↰' ||
+             input[0] == L'↱' || input[0] == '^' || input[0] == '{' || input[0] == '&' ||
+             input[0] == L'×' || input[0] == L'÷' || input[0] == L'«' || input[0] == L'»')
+    {
+        auto command = input.at(0); // save the command so we don't lose it due to the input string
+                                    // chomping
+        input.remove(0, 1);
+        auto number = getNumberNode(input);
+
+        // parse the command
+        if (command == '#')
+        {
+            auto body = getInstructionNode(input);
+            return new Loop{number, body, *this};
+        }
+        else if (command == L'←' || command == L'↰')
+        {
+            if (command == L'←')
+            {
+                auto chain = new InstructionChain{*this};
+                chain->addNode(new PushLocationPointer{*this});
+                chain->addNode(new JumpStatement{number, JumpStatement::Backwards, *this});
+                return chain;
+            }
+            else
+                return new JumpStatement{number, JumpStatement::Backwards, *this};
+        }
+        else if (command == L'→' || command == L'↱')
+        {
+            if (command == L'→')
+            {
+                auto chain = new InstructionChain{*this};
+                chain->addNode(new PushLocationPointer{*this});
+                chain->addNode(new JumpStatement{number, JumpStatement::Forwards, *this});
+                return chain;
+            }
+            else
+                return new JumpStatement{number, JumpStatement::Forwards, *this};
+        }
+        else if (command == '^')
+            return new SetAccumulator{number, *this};
+        else if (command == '{')
+            return new PushToStack{number, *this};
+        else if (command == '&')
+        {
+            if (input[0] != ':')
+                ; // TODO: CRASH AND BURN
+
+            input.remove(0, 1);
+            auto val = getNumberNode(input);
+            return new SetRegister{number, val, *this};
+        }
+        else if (command == L'×')
+            return new MultiplyStatement{number, *this};
+        else if (command == L'÷')
+            return new DivideStatement{number, *this};
+        else if (command == L'«')
+            return new BitShift{number, BitShift::Left, *this};
+        else if (command == L'»')
+            return new BitShift{number, BitShift::Right, *this};
+        else // TODO: handle this more gracefully
+            qFatal("Error: somehow the character \'%c\' got parsed where it shouldn't have.",
+                   input[0].toLatin1());
+    }
+
     else if (input[0].isDigit())
     {
         QString numString;
