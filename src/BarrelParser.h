@@ -58,7 +58,7 @@ private:
     InstructionNode *getInstructionNode(QString &input);
 
     //! This will properly handle special number representatives.
-    QPair<InstructionNode *, int> getNumberNode(QString &string);
+    InstructionNode *getNumberNode(QString &string);
 
     InstructionChain *m_instructionChain = nullptr;
 
