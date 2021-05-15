@@ -67,7 +67,7 @@ If an instruction does not seem to perform as this table specifies, please ensur
 |`≤N`       |`U+2264`          |Returns whether the accumulator is less than or equal to N.                         |
 |`¯`        |`U+00AF`          |Accesses the top of the stack.                                                      |
 |`⅟`        |`U+215F`          |Reciprocates the accumulator (1 / accumulator).                                     |
-|`(XYZ)`    |`U+0028, U+0029`  |Creates a single instruction or code block out of the instructions `XYZ`.           |
+|`(XYZ)`    |`U+0028, U+0029`  |Creates a single instruction or code block out of the instructions `XYZ`. Self-closing.|
 |`∞`        |`U+221E`          |If in a loop (e.g. `#∞+`), loops forever. Otherwise, returns infinity.              |
 
 ## Numbers
