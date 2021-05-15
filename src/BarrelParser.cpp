@@ -141,7 +141,7 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
     else if (input[0] == L'¶')
     {
         input.remove(0, 1);
-        return new PrintStatement{new BarrelString{"\n", *this}, *this};
+        return new BarrelString{"\n", *this};
     }
     else if (input[0] == '[')
     {
@@ -370,9 +370,8 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
         if (!gotDouble)
         {
             input.remove(0, 1);
-            return new Number{static_cast<double>(input[0].toLatin1()), *this}; // return the
-                                                                                // char's
-                                                                                // codepoint
+            // return the char's codepoint
+            return new Number{static_cast<double>(input[0].toLatin1()), *this};
         }
 
         input.remove(0, numString.length());
@@ -422,8 +421,9 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
 
     else // implicitly print unknown characters
     {
+        auto val = input.at(0);
         input.remove(0, 1);
-        return new PrintStatement{new BarrelString{QChar{input[0]}, *this}, *this};
+        return new BarrelString{val, *this};
     }
 }
 
@@ -524,10 +524,10 @@ InstructionNode *BarrelParser::getNumberNode(QString &input)
     numString.toDouble(&gotDouble);
     if (!gotDouble)
     {
+        auto val = input.at(0);
         input.remove(0, 1);
-        return new Number{static_cast<double>(input[0].toLatin1()), *this}; // return the
-                                                                            // char's
-                                                                            // codepoint
+        // return the char's codepoint
+        return new Number{static_cast<double>(val.toLatin1()), *this};
     }
 
     input.remove(0, numString.length());
