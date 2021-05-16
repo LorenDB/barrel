@@ -23,3 +23,11 @@ QVariant PrintStatement::exec()
 
     return {};
 }
+
+bool PrintStatement::hasAsChild(InstructionNode *other)
+{
+    if (m_itemToPrint == other || m_itemToPrint->hasAsChild(other))
+        return true;
+
+    return false;
+}

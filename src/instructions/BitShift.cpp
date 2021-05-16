@@ -15,3 +15,11 @@ QVariant BitShift::exec()
                                  static_cast<int>(m_parser->accumulator()) >> places);
     return {m_parser->accumulator()};
 }
+
+bool BitShift::hasAsChild(InstructionNode *other)
+{
+    if (m_places == other || m_places->hasAsChild(other))
+        return true;
+
+    return false;
+}

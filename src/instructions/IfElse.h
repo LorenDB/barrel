@@ -13,6 +13,7 @@ public:
                     InstructionNode *falseyNode, BarrelParser &parser);
 
     QVariant exec() override;
+    bool hasAsChild(InstructionNode *other) override;
 
 signals:
 

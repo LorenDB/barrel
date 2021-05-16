@@ -18,6 +18,7 @@ public:
     //! Executes the instruction chain and returns the
     //! return value from Barrel.
     QVariant exec() override;
+    bool hasAsChild(InstructionNode *other) override;
 
     bool jumpToNode(InstructionNode *node);
     void condenseNodes();

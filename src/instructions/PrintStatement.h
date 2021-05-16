@@ -18,6 +18,7 @@ public:
                    PrintAs printAs = PrintAs::CharacterCodepoint);
 
     QVariant exec() override;
+    bool hasAsChild(InstructionNode *other) override;
 
 private:
     PrintAs m_printAs;

@@ -18,6 +18,7 @@ public:
     JumpStatement(InstructionNode *spaces, Direction direction, BarrelParser &parser);
 
     QVariant exec() override;
+    bool hasAsChild(InstructionNode *other) override;
 
 signals:
     void jump(int spaces);

@@ -33,6 +33,15 @@ QVariant InstructionChain::exec()
     return retVal;
 }
 
+bool InstructionChain::hasAsChild(InstructionNode *other)
+{
+    for (auto item : m_instructionChain)
+        if (item == other || item->hasAsChild(other))
+            return true;
+
+    return false;
+}
+
 bool InstructionChain::jumpToNode(InstructionNode *node)
 {
     for (int i = 0; i < m_instructionChain.length(); ++i)

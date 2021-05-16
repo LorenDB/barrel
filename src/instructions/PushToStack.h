@@ -11,6 +11,7 @@ public:
     PushToStack(InstructionNode *numToPush, BarrelParser &parser);
 
     QVariant exec() override;
+    bool hasAsChild(InstructionNode *other) override;
 
 private:
     InstructionNode *m_numToPush;

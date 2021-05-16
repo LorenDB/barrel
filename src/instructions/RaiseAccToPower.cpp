@@ -19,3 +19,11 @@ QVariant RaiseAccToPower::exec()
     //    m_powerToRaiseTo->exec().toDouble()));
     return {m_parser->accumulator()};
 }
+
+bool RaiseAccToPower::hasAsChild(InstructionNode *other)
+{
+    if (m_powerToRaiseTo == other || m_powerToRaiseTo->hasAsChild(other))
+        return true;
+
+    return false;
+}

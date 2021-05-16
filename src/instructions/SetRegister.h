@@ -10,6 +10,7 @@ public:
     SetRegister(InstructionNode *index, InstructionNode *value, BarrelParser &parser);
 
     QVariant exec() override;
+    bool hasAsChild(InstructionNode *other) override;
 
 private:
     InstructionNode *m_index;

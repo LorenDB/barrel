@@ -11,6 +11,7 @@ public:
     SetAccumulator(InstructionNode *newValue, BarrelParser &parser);
 
     QVariant exec() override;
+    bool hasAsChild(InstructionNode *other) override;
 
 private:
     InstructionNode *m_newValue;

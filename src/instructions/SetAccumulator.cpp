@@ -16,3 +16,11 @@ QVariant SetAccumulator::exec()
 
     return {};
 }
+
+bool SetAccumulator::hasAsChild(InstructionNode *other)
+{
+    if (m_newValue == other || m_newValue->hasAsChild(other))
+        return true;
+
+    return false;
+}

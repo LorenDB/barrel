@@ -11,6 +11,7 @@ public:
     NotEqualTo(InstructionNode *valueToCompareTo, BarrelParser &parser);
 
     QVariant exec() override;
+    bool hasAsChild(InstructionNode *other) override;
 };
 
 #endif // NOTEQUALTO_H

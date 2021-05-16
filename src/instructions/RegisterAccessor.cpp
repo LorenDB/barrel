@@ -10,3 +10,11 @@ QVariant RegisterAccessor::exec()
 {
     return {m_parser->registerAt(m_index->exec().toInt())};
 }
+
+bool RegisterAccessor::hasAsChild(InstructionNode *other)
+{
+    if (m_index == other || m_index->hasAsChild(other))
+        return true;
+
+    return false;
+}

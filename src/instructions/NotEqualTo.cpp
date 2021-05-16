@@ -13,3 +13,11 @@ QVariant NotEqualTo::exec()
     else
         return {}; // CRASHANDBURNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 }
+
+bool NotEqualTo::hasAsChild(InstructionNode *other)
+{
+    if (m_valueToCompareTo == other || m_valueToCompareTo->hasAsChild(other))
+        return true;
+
+    return false;
+}

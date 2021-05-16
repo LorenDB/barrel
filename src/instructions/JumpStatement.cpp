@@ -15,3 +15,11 @@ QVariant JumpStatement::exec()
 
     return QVariant{};
 }
+
+bool JumpStatement::hasAsChild(InstructionNode *other)
+{
+    if (m_spacesToJump == other || m_spacesToJump->hasAsChild(other))
+        return true;
+
+    return false;
+}
