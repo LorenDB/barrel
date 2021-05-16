@@ -22,7 +22,7 @@ public:
 
     //! Find whether this node has another node as a child.
     // this should be overridden for nodes that have child nodes
-    bool hasAsChild(InstructionNode *other);
+    virtual bool hasAsChild(InstructionNode *other);
 
 signals:
 

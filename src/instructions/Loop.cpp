@@ -27,3 +27,11 @@ QVariant Loop::exec()
 
     return {};
 }
+
+bool Loop::hasAsChild(InstructionNode *other)
+{
+    if (m_times == other || m_body == other || m_times->hasAsChild(other) || m_body->hasAsChild(other))
+        return true;
+
+    return false;
+}
