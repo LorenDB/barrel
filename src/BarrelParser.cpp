@@ -270,6 +270,10 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
         auto chain = new InstructionChain{*this};
         while (!input.isEmpty() && input[0] != ')')
             chain->addNode(getInstructionNode(input));
+
+        // remove the ')'
+        input.remove(0, 1);
+
         return chain;
     }
 
