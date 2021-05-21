@@ -31,6 +31,8 @@ public:
     // convenience function
     void print(const QString &itemToPrint);
 
+    double getInput();
+
     bool isDone() const;
     double accumulator() const;
     void setAccumulator(double d);
@@ -65,6 +67,8 @@ private:
     QMap<QChar, double> m_numericShortcuts;
     QMap<QChar, double> m_exponentShortcuts;
     QStack<InstructionNode *> m_locationPointerStack;
+
+    QString m_inputBuffer;
 
     // data storage for the program
     QStack<double> m_stack;

@@ -280,6 +280,11 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
 
         return chain;
     }
+    else if (input[0] == L'λ')
+    {
+        input.remove(0, 1);
+        return new InputStatement{*this};
+    }
 
     // string
     else if (input[0] == '\'')
@@ -568,6 +573,29 @@ void BarrelParser::print(const QString &itemToPrint)
     std::cout << itemToPrint.toStdString();
     std::cout.flush(); // make sure to print
     m_hasOutputThisRound = true;
+}
+
+double BarrelParser::getInput()
+{
+    double d = 0;
+
+    if (m_hasOutputThisRound) // get off the line with output
+    {
+        std::cout << "\n";
+    }
+    std::cout << ": ";
+    std::cin >> d;
+
+    if (std::cin.fail())
+    {
+        std::cin.clear();
+        d = static_cast<double>(std::cin.get());
+    }
+
+    // clear the input
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    return d;
 }
 
 bool BarrelParser::isDone() const

@@ -69,6 +69,7 @@ If an instruction does not seem to perform as this table specifies, please ensur
 |`⅟`        |`U+215F`          |Reciprocates the accumulator (1 / accumulator).                                     |
 |`(XYZ)`    |`U+0028, U+0029`  |Creates a single instruction or code block out of the instructions `XYZ`. Self-closing.|
 |`∞`        |`U+221E`          |If in a loop (e.g. `#∞+`), loops forever. Otherwise, returns infinity.              |
+|`λ`        |`U+03BB`          |Gets input from the user as a `double` value and stores it in the accumulator.      |
 
 ## Self-closing and self-completing statements
 As noted above, some instructions (e.g. `()`, `?:::`) are self-closing. This means that if they occur at the end of the program, they will automatically fill in missing parts. For example, `++#3(+n` will expand to `++#3(+n)`, and `++?=1:'hi` will expand to `++?=1:'hi'::`. Furthermore, if a statement is not given everything that it needs to be a complete statement (e.g. `#2`), continue statements will be automatically inserted as needed. Therefore, `#2` will expand to `#2…`.
