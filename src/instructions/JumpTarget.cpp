@@ -2,8 +2,8 @@
 
 JumpTarget::JumpTarget(BarrelParser &parser) : InstructionNode{parser} {}
 
-QVariant JumpTarget::exec()
+QVariant JumpTarget::exec(ExecRole role)
 {
-    // this does nothing currently
+    // this does nothing
     return {};
 }

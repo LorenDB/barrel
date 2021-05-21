@@ -10,7 +10,7 @@ class RandomNumberGenerator : public InstructionNode
 public:
     RandomNumberGenerator(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // RANDOMNUMBERGENERATOR_H

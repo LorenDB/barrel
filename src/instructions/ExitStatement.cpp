@@ -2,8 +2,9 @@
 
 ExitStatement::ExitStatement(BarrelParser &parser) : InstructionNode{parser} {}
 
-QVariant ExitStatement::exec()
+QVariant ExitStatement::exec(ExecRole role)
 {
     m_parser->setDone();
-    return {};
+
+    return {0};
 }

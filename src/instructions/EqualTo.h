@@ -10,7 +10,7 @@ class EqualTo : public EqualityOperation
 public:
     EqualTo(InstructionNode *valueToCompareTo, BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // EQUALTO_H

@@ -10,7 +10,7 @@ class JumpTarget : public InstructionNode
 public:
     JumpTarget(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // JUMPTARGET_H

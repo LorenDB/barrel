@@ -5,11 +5,9 @@ GreaterThan::GreaterThan(InstructionNode *valueToCompareTo, BarrelParser &parser
 {
 }
 
-QVariant GreaterThan::exec()
+QVariant GreaterThan::exec(ExecRole role)
 {
-    auto value = m_valueToCompareTo->exec();
-    if (value.isValid())
-        return {m_parser->accumulator() > value.toDouble()};
-    else
-        return {}; // CRASHANDBURNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+    auto value = m_valueToCompareTo->exec(NumericalValue);
+
+    return {m_parser->accumulator() > value.toDouble()};
 }

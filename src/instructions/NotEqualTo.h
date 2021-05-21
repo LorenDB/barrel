@@ -10,7 +10,7 @@ class NotEqualTo : public EqualityOperation
 public:
     NotEqualTo(InstructionNode *valueToCompareTo, BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;
 };
 

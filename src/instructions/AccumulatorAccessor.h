@@ -10,7 +10,7 @@ class AccumulatorAccessor : public InstructionNode
 public:
     AccumulatorAccessor(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // ACCUMULATORACCESSOR_H

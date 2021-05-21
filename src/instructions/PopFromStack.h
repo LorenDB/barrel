@@ -10,7 +10,7 @@ class PopFromStack : public InstructionNode
 public:
     PopFromStack(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // POPFROMSTACK_H

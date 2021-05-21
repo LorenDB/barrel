@@ -6,15 +6,12 @@ SetAccumulator::SetAccumulator(InstructionNode *newValue, BarrelParser &parser)
 {
 }
 
-QVariant SetAccumulator::exec()
+QVariant SetAccumulator::exec(ExecRole role)
 {
-    auto value = m_newValue->exec();
-    if (value.isValid())
-        m_parser->setAccumulator(value.toDouble());
-    else
-        ; // TODO: DO A CRASH AND BURN
+    auto value = m_newValue->exec(NumericalValue);
+    m_parser->setAccumulator(value.toDouble());
 
-    return {};
+    return {value};
 }
 
 bool SetAccumulator::hasAsChild(InstructionNode *other)

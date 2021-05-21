@@ -10,7 +10,7 @@ class Number : public InstructionNode
 public:
     Number(double value, BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 
 private:
     double m_value;

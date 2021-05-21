@@ -22,13 +22,13 @@ void InstructionChain::addNode(InstructionNode *node)
     }
 }
 
-QVariant InstructionChain::exec()
+QVariant InstructionChain::exec(ExecRole role)
 {
     QVariant retVal;
 
     for (m_execLocation = 0; m_execLocation < m_instructionChain.length() && !m_parser->isDone();
          ++m_execLocation)
-        retVal = m_instructionChain[m_execLocation]->exec();
+        retVal = m_instructionChain[m_execLocation]->exec(role);
 
     return retVal;
 }

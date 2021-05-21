@@ -10,7 +10,7 @@ class NegateAccumulator : public InstructionNode
 public:
     NegateAccumulator(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // NEGATEACCUMULATOR_H

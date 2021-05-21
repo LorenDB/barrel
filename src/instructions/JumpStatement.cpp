@@ -7,11 +7,16 @@ JumpStatement::JumpStatement(InstructionNode *spaces, Direction direction, Barre
 {
 }
 
-QVariant JumpStatement::exec()
+QVariant JumpStatement::exec(ExecRole role)
 {
-    auto spaces = m_spacesToJump->exec().toInt();
-    emit jump(m_direction == Forwards ? spaces : -spaces); // if jumping backwards, make sure to use
-                                                           // a negative direction
+    auto spaces = m_spacesToJump->exec(NumericalValue).toInt();
+
+    // if jumping backwards, make sure to use a negative direction
+    emit jump(m_direction == Forwards ? spaces : -spaces);
+
+    // this seems wacky, but we need to cover every case
+    if (role == NumericalValue)
+        return {spaces};
 
     return QVariant{};
 }

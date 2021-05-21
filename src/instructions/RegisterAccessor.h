@@ -10,7 +10,7 @@ class RegisterAccessor : public InstructionNode
 public:
     RegisterAccessor(InstructionNode *index, BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;
 
 private:

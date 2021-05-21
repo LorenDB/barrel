@@ -17,7 +17,7 @@ public:
 
     //! Executes the instruction chain and returns the
     //! return value from Barrel.
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;
 
     bool jumpToNode(InstructionNode *node);

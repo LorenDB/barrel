@@ -4,8 +4,8 @@
 
 RandomNumberGenerator::RandomNumberGenerator(BarrelParser &parser) : InstructionNode{parser} {}
 
-QVariant RandomNumberGenerator::exec()
+QVariant RandomNumberGenerator::exec(ExecRole role)
 {
     m_parser->setAccumulator(QRandomGenerator64::global()->generate64());
-    return {};
+    return {m_parser->accumulator()};
 }

@@ -7,9 +7,9 @@ PrintStatement::PrintStatement(InstructionNode *itemToPrint, BarrelParser &parse
 {
 }
 
-QVariant PrintStatement::exec()
+QVariant PrintStatement::exec(ExecRole role)
 {
-    auto toPrint = m_itemToPrint->exec();
+    auto toPrint = m_itemToPrint->exec(role);
     switch (m_printAs)
     {
     case PrintAs::CharacterCodepoint:
@@ -21,7 +21,7 @@ QVariant PrintStatement::exec()
         break;
     }
 
-    return {};
+    return {toPrint};
 }
 
 bool PrintStatement::hasAsChild(InstructionNode *other)

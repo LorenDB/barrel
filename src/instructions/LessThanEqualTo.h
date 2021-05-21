@@ -10,7 +10,7 @@ class LessThanEqualTo : public EqualityOperation
 public:
     LessThanEqualTo(InstructionNode *valueToCompareTo, BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // LESSTHANEQUALTO_H

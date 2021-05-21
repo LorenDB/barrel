@@ -5,11 +5,9 @@ EqualTo::EqualTo(InstructionNode *valueToCompareTo, BarrelParser &parser)
 {
 }
 
-QVariant EqualTo::exec()
+QVariant EqualTo::exec(ExecRole role)
 {
-    auto value = m_valueToCompareTo->exec();
-    if (value.isValid())
-        return {m_parser->accumulator() == value.toDouble()};
-    else
-        return {}; // CRASHANDBURNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+    auto value = m_valueToCompareTo->exec(NumericalValue);
+
+    return {m_parser->accumulator() == value.toDouble()};
 }

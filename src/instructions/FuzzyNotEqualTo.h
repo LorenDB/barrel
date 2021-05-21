@@ -10,7 +10,7 @@ class FuzzyNotEqualTo : public EqualityOperation
 public:
     FuzzyNotEqualTo(InstructionNode *valueToCompareTo, BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // FUZZYNOTEQUALTO_H

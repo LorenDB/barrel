@@ -9,7 +9,7 @@ class SetRegister : public InstructionNode
 public:
     SetRegister(InstructionNode *index, InstructionNode *value, BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;
 
 private:

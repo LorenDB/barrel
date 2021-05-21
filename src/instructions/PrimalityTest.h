@@ -10,7 +10,7 @@ class PrimalityTest : public InstructionNode
 public:
     PrimalityTest(InstructionNode *numberToTest, BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 
 private:
     InstructionNode *m_numberToTest;

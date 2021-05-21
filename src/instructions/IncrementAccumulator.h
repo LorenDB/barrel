@@ -10,7 +10,7 @@ class IncrementAccumulator : public InstructionNode
 public:
     IncrementAccumulator(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // INCREMENTACCUMULATOR_H

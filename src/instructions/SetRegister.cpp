@@ -7,10 +7,11 @@ SetRegister::SetRegister(InstructionNode *index, InstructionNode *value, BarrelP
 {
 }
 
-QVariant SetRegister::exec()
+QVariant SetRegister::exec(ExecRole role)
 {
-    m_parser->setRegisterAt(m_index->exec().toInt(), m_value->exec().toDouble());
-    return {};
+    auto reg = m_index->exec(NumericalValue).toInt();
+    m_parser->setRegisterAt(reg, m_value->exec(NumericalValue).toDouble());
+    return {m_parser->registerAt(reg)};
 }
 
 bool SetRegister::hasAsChild(InstructionNode *other)

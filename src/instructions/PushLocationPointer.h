@@ -10,7 +10,7 @@ class PushLocationPointer : public InstructionNode
 public:
     PushLocationPointer(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // PUSHLOCATIONPOINTER_H

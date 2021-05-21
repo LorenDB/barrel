@@ -10,7 +10,7 @@ class BarrelString : public InstructionNode
 public:
     BarrelString(const QString &string, BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 
 private:
     QString m_string;

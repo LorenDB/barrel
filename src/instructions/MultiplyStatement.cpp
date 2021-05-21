@@ -6,9 +6,9 @@ MultiplyStatement::MultiplyStatement(InstructionNode *factor, BarrelParser &pars
 {
 }
 
-QVariant MultiplyStatement::exec()
+QVariant MultiplyStatement::exec(ExecRole role)
 {
-    m_parser->setAccumulator(m_parser->accumulator() * m_factor->exec().toDouble());
+    m_parser->setAccumulator(m_parser->accumulator() * m_factor->exec(NumericalValue).toDouble());
     return {m_parser->accumulator()};
 }
 

@@ -17,7 +17,7 @@ public:
     PrintStatement(InstructionNode *itemToPrint, BarrelParser &parser,
                    PrintAs printAs = PrintAs::CharacterCodepoint);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;
 
 private:

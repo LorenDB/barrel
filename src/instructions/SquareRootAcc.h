@@ -10,7 +10,7 @@ class SquareRootAcc : public InstructionNode
 public:
     SquareRootAcc(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // SQUAREROOTACC_H

@@ -10,7 +10,7 @@ class ContinueStatement : public InstructionNode
 public:
     ContinueStatement(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // CONTINUESTATEMENT_H

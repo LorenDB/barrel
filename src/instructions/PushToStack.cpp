@@ -6,10 +6,10 @@ PushToStack::PushToStack(InstructionNode *numToPush, BarrelParser &parser)
 {
 }
 
-QVariant PushToStack::exec()
+QVariant PushToStack::exec(ExecRole role)
 {
-    m_parser->pushToStack(m_numToPush->exec().toDouble());
-    return {};
+    m_parser->pushToStack(m_numToPush->exec(NumericalValue).toDouble());
+    return {m_parser->topOfStack()};
 }
 
 bool PushToStack::hasAsChild(InstructionNode *other)

@@ -9,7 +9,7 @@ bool InstructionNode::hasAsChild(InstructionNode *other)
     return false;
 }
 
-QVariant InstructionNode::exec()
+QVariant InstructionNode::exec(ExecRole role)
 {
     // do nothing; this should be overridden by subclasses
     return QVariant{};

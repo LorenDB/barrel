@@ -2,7 +2,7 @@
 
 StackAccessor::StackAccessor(BarrelParser &parser) : InstructionNode{parser} {}
 
-QVariant StackAccessor::exec()
+QVariant StackAccessor::exec(ExecRole role)
 {
     return m_parser->topOfStack();
 }

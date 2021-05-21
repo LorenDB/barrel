@@ -10,7 +10,7 @@ class StackAccessor : public InstructionNode
 public:
     StackAccessor(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // STACKACCESSOR_H

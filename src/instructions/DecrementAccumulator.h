@@ -10,7 +10,7 @@ class DecrementAccumulator : public InstructionNode
 public:
     DecrementAccumulator(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // DECREMENTACCUMULATOR_H

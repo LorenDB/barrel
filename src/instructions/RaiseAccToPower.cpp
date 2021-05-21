@@ -8,15 +8,10 @@ RaiseAccToPower::RaiseAccToPower(InstructionNode *powerToRaiseTo, BarrelParser &
 {
 }
 
-QVariant RaiseAccToPower::exec()
+QVariant RaiseAccToPower::exec(ExecRole role)
 {
-    auto a = m_parser->accumulator();
-    auto b = m_powerToRaiseTo->exec();
-    auto c = b.toDouble();
-    auto d = std::pow(a, c);
-    m_parser->setAccumulator(d);
-    //    m_parser->setAccumulator(std::pow(m_parser->accumulator(),
-    //    m_powerToRaiseTo->exec().toDouble()));
+    m_parser->setAccumulator(
+        std::pow(m_parser->accumulator(), m_powerToRaiseTo->exec(NumericalValue).toDouble()));
     return {m_parser->accumulator()};
 }
 

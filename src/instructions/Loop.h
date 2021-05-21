@@ -10,7 +10,7 @@ class Loop : public InstructionNode
 public:
     Loop(InstructionNode *times, InstructionNode *body, BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;
 
 private:

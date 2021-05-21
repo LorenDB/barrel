@@ -7,9 +7,9 @@ BitShift::BitShift(InstructionNode *places, Direction direction, BarrelParser &p
 {
 }
 
-QVariant BitShift::exec()
+QVariant BitShift::exec(ExecRole role)
 {
-    auto places = m_places->exec().toInt();
+    auto places = m_places->exec(NumericalValue).toInt();
     m_parser->setAccumulator(m_direction == Left ?
                                  static_cast<int>(m_parser->accumulator()) << places :
                                  static_cast<int>(m_parser->accumulator()) >> places);

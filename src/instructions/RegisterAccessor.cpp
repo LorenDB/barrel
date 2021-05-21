@@ -6,9 +6,9 @@ RegisterAccessor::RegisterAccessor(InstructionNode *index, BarrelParser &parser)
 {
 }
 
-QVariant RegisterAccessor::exec()
+QVariant RegisterAccessor::exec(ExecRole role)
 {
-    return {m_parser->registerAt(m_index->exec().toInt())};
+    return {m_parser->registerAt(m_index->exec(NumericalValue).toInt())};
 }
 
 bool RegisterAccessor::hasAsChild(InstructionNode *other)

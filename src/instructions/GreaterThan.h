@@ -10,7 +10,7 @@ class GreaterThan : public EqualityOperation
 public:
     GreaterThan(InstructionNode *valueToCompareTo, BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // GREATERTHAN_H

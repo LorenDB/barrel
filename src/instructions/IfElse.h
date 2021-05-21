@@ -12,7 +12,7 @@ public:
     explicit IfElse(InstructionNode *evalNode, InstructionNode *truthyNode,
                     InstructionNode *falseyNode, BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;
 
 signals:

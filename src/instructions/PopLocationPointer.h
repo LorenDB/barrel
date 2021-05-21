@@ -10,7 +10,7 @@ class PopLocationPointer : public InstructionNode
 public:
     PopLocationPointer(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // POPLOCATIONPOINTER_H

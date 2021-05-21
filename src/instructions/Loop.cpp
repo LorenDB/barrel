@@ -9,12 +9,14 @@ Loop::Loop(InstructionNode *times, InstructionNode *body, BarrelParser &parser)
 {
 }
 
-QVariant Loop::exec()
+QVariant Loop::exec(ExecRole role)
 {
+    QVariant ret;
+
     if (dynamic_cast<Infinity *>(m_times))
     {
         while (true)
-            m_body->exec();
+            m_body->exec(role);
     }
     else
     {
@@ -22,10 +24,10 @@ QVariant Loop::exec()
         auto times = m_times->exec().toInt();
 
         for (int i = 0; i < times; ++i)
-            m_body->exec();
+            ret = m_body->exec();
     }
 
-    return {};
+    return ret;
 }
 
 bool Loop::hasAsChild(InstructionNode *other)

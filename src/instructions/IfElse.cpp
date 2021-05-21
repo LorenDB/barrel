@@ -9,18 +9,14 @@ IfElse::IfElse(InstructionNode *evalNode, InstructionNode *truthyNode, Instructi
 {
 }
 
-QVariant IfElse::exec()
+QVariant IfElse::exec(ExecRole role)
 {
-    auto value = m_evalNode->exec();
-    if (value.isValid())
-    {
-        if (value.toBool() || value.toDouble() || value.toInt())
-            return m_truthyNode->exec();
-        else
-            return m_falseyNode->exec();
-    }
+    auto value = m_evalNode->exec(NumericalValue);
+
+    if (value.toBool() || value.toDouble() || value.toInt())
+        return m_truthyNode->exec(role);
     else
-        return {}; // RAISE EXCEPTION OR SOMETHING
+        return m_falseyNode->exec(role);
 }
 
 bool IfElse::hasAsChild(InstructionNode *other)

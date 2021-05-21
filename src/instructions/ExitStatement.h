@@ -10,7 +10,7 @@ class ExitStatement : public InstructionNode
 public:
     ExitStatement(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // EXITSTATEMENT_H

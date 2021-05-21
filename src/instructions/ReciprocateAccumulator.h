@@ -9,7 +9,7 @@ class ReciprocateAccumulator : public InstructionNode
 public:
     ReciprocateAccumulator(BarrelParser &parser);
 
-    QVariant exec() override;
+    QVariant exec(ExecRole role = Default) override;
 };
 
 #endif // RECIPROCATEACCUMULATOR_H
