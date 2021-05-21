@@ -106,6 +106,10 @@ InstructionChain *BarrelParser::parseToInstructionChain(const QString &input)
 
 InstructionNode *BarrelParser::getInstructionNode(QString &input)
 {
+    // if no input, just continue
+    if (input.isEmpty())
+        return new ContinueStatement{*this};
+
     // single character commands
     if (input[0] == '+')
     {
