@@ -12,7 +12,10 @@ class InstructionNode : public QObject
 
 public:
     explicit InstructionNode(BarrelParser &parser);
-    // TODO: set up destructor to delete any children nodes (pure virtual here; override elsewhere)
+
+    // If you are subclassing InstructionNode, make sure that you implement a destructor if you have
+    // any child pointers to other InstructionNodes. If you want an example, see
+    // InstructionChain.cpp.
 
     enum ExecRole
     {

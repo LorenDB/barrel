@@ -12,6 +12,15 @@ InstructionChain::InstructionChain(const InstructionChain &other)
 {
 }
 
+InstructionChain::~InstructionChain()
+{
+    // delete each allocated object
+    for (auto item : m_instructionChain)
+        delete item;
+
+    m_instructionChain.clear();
+}
+
 void InstructionChain::addNode(InstructionNode *node)
 {
     m_instructionChain.push_back(node);

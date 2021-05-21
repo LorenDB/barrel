@@ -13,6 +13,8 @@ public:
     explicit InstructionChain(BarrelParser &parser);
     InstructionChain(const InstructionChain &other);
 
+    virtual ~InstructionChain();
+
     void addNode(InstructionNode *node);
 
     //! Executes the instruction chain and returns the
