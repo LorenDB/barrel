@@ -9,6 +9,7 @@ class PushToStack : public InstructionNode
 
 public:
     PushToStack(InstructionNode *numToPush, BarrelParser &parser);
+    ~PushToStack();
 
     QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;

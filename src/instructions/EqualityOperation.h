@@ -9,6 +9,7 @@ class EqualityOperation : public InstructionNode
 
 public:
     EqualityOperation(InstructionNode *valueToCompareTo, BarrelParser &parser);
+    ~EqualityOperation();
 
     bool hasAsChild(InstructionNode *other) override;
 

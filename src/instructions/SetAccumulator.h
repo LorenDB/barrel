@@ -9,6 +9,7 @@ class SetAccumulator : public InstructionNode
 
 public:
     SetAccumulator(InstructionNode *newValue, BarrelParser &parser);
+    ~SetAccumulator();
 
     QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;

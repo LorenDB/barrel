@@ -6,6 +6,11 @@ EqualityOperation::EqualityOperation(InstructionNode *valueToCompareTo, BarrelPa
 {
 }
 
+EqualityOperation::~EqualityOperation()
+{
+    delete m_valueToCompareTo;
+}
+
 bool EqualityOperation::hasAsChild(InstructionNode *other)
 {
     if (m_valueToCompareTo == other || m_valueToCompareTo->hasAsChild(other))

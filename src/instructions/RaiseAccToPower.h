@@ -10,6 +10,7 @@ class RaiseAccToPower : public InstructionNode
 
 public:
     RaiseAccToPower(InstructionNode *powerToRaiseTo, BarrelParser &parser);
+    ~RaiseAccToPower();
 
     QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;

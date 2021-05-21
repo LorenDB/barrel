@@ -6,6 +6,11 @@ RegisterAccessor::RegisterAccessor(InstructionNode *index, BarrelParser &parser)
 {
 }
 
+RegisterAccessor::~RegisterAccessor()
+{
+    delete m_index;
+}
+
 QVariant RegisterAccessor::exec(ExecRole role)
 {
     return {m_parser->registerAt(m_index->exec(NumericalValue).toInt())};

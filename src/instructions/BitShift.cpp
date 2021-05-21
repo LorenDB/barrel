@@ -7,6 +7,11 @@ BitShift::BitShift(InstructionNode *places, Direction direction, BarrelParser &p
 {
 }
 
+BitShift::~BitShift()
+{
+    delete m_places;
+}
+
 QVariant BitShift::exec(ExecRole role)
 {
     auto places = m_places->exec(NumericalValue).toInt();

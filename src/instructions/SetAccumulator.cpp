@@ -6,6 +6,11 @@ SetAccumulator::SetAccumulator(InstructionNode *newValue, BarrelParser &parser)
 {
 }
 
+SetAccumulator::~SetAccumulator()
+{
+    delete m_newValue;
+}
+
 QVariant SetAccumulator::exec(ExecRole role)
 {
     auto value = m_newValue->exec(NumericalValue);

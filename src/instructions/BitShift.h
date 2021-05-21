@@ -15,6 +15,7 @@ public:
     };
 
     BitShift(InstructionNode *places, Direction direction, BarrelParser &parser);
+    ~BitShift();
 
     QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;

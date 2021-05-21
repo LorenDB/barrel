@@ -8,6 +8,11 @@ RaiseAccToPower::RaiseAccToPower(InstructionNode *powerToRaiseTo, BarrelParser &
 {
 }
 
+RaiseAccToPower::~RaiseAccToPower()
+{
+    delete m_powerToRaiseTo;
+}
+
 QVariant RaiseAccToPower::exec(ExecRole role)
 {
     m_parser->setAccumulator(

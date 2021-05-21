@@ -7,6 +7,11 @@ JumpStatement::JumpStatement(InstructionNode *spaces, Direction direction, Barre
 {
 }
 
+JumpStatement::~JumpStatement()
+{
+    delete m_spacesToJump;
+}
+
 QVariant JumpStatement::exec(ExecRole role)
 {
     auto spaces = m_spacesToJump->exec(NumericalValue).toInt();

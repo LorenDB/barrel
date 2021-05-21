@@ -9,6 +9,7 @@ class DivideStatement : public InstructionNode
 
 public:
     DivideStatement(InstructionNode *divisor, BarrelParser &parser);
+    ~DivideStatement();
 
     QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;

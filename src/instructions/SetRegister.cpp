@@ -7,6 +7,12 @@ SetRegister::SetRegister(InstructionNode *index, InstructionNode *value, BarrelP
 {
 }
 
+SetRegister::~SetRegister()
+{
+    delete m_index;
+    delete m_value;
+}
+
 QVariant SetRegister::exec(ExecRole role)
 {
     auto reg = m_index->exec(NumericalValue).toInt();

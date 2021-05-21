@@ -9,6 +9,7 @@ class MultiplyStatement : public InstructionNode
 
 public:
     MultiplyStatement(InstructionNode *factor, BarrelParser &parser);
+    ~MultiplyStatement();
 
     QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;

@@ -9,6 +9,13 @@ IfElse::IfElse(InstructionNode *evalNode, InstructionNode *truthyNode, Instructi
 {
 }
 
+IfElse::~IfElse()
+{
+    delete m_evalNode;
+    delete m_truthyNode;
+    delete m_falseyNode;
+}
+
 QVariant IfElse::exec(ExecRole role)
 {
     auto value = m_evalNode->exec(NumericalValue);

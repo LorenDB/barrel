@@ -16,6 +16,7 @@ public:
     };
 
     JumpStatement(InstructionNode *spaces, Direction direction, BarrelParser &parser);
+    ~JumpStatement();
 
     QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;

@@ -11,6 +11,7 @@ class IfElse : public InstructionNode
 public:
     explicit IfElse(InstructionNode *evalNode, InstructionNode *truthyNode,
                     InstructionNode *falseyNode, BarrelParser &parser);
+    ~IfElse();
 
     QVariant exec(ExecRole role = Default) override;
     bool hasAsChild(InstructionNode *other) override;

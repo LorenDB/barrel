@@ -6,6 +6,11 @@ DivideStatement::DivideStatement(InstructionNode *divisor, BarrelParser &parser)
 {
 }
 
+DivideStatement::~DivideStatement()
+{
+    delete m_divisor;
+}
+
 QVariant DivideStatement::exec(ExecRole role)
 {
     m_parser->setAccumulator(m_parser->accumulator() / m_divisor->exec(NumericalValue).toDouble());

@@ -9,6 +9,12 @@ Loop::Loop(InstructionNode *times, InstructionNode *body, BarrelParser &parser)
 {
 }
 
+Loop::~Loop()
+{
+    delete m_times;
+    delete m_body;
+}
+
 QVariant Loop::exec(ExecRole role)
 {
     QVariant ret;

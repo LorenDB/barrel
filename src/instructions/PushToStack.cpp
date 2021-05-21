@@ -6,6 +6,11 @@ PushToStack::PushToStack(InstructionNode *numToPush, BarrelParser &parser)
 {
 }
 
+PushToStack::~PushToStack()
+{
+    delete m_numToPush;
+}
+
 QVariant PushToStack::exec(ExecRole role)
 {
     m_parser->pushToStack(m_numToPush->exec(NumericalValue).toDouble());
