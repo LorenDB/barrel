@@ -21,7 +21,9 @@ QVariant IfElse::exec(ExecRole role)
 
 bool IfElse::hasAsChild(InstructionNode *other)
 {
-    if (m_evalNode == other || m_truthyNode == other || m_falseyNode == other || m_evalNode->hasAsChild(other) || m_truthyNode->hasAsChild(other) || m_falseyNode->hasAsChild(other))
+    if (m_evalNode == other || m_truthyNode == other || m_falseyNode == other ||
+        m_evalNode->hasAsChild(other) || m_truthyNode->hasAsChild(other) ||
+        m_falseyNode->hasAsChild(other))
         return true;
 
     return false;

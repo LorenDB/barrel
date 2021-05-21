@@ -16,7 +16,8 @@ QVariant SetRegister::exec(ExecRole role)
 
 bool SetRegister::hasAsChild(InstructionNode *other)
 {
-    if (m_index == other || m_value == other || m_index->hasAsChild(other) || m_value->hasAsChild(other))
+    if (m_index == other || m_value == other || m_index->hasAsChild(other) ||
+        m_value->hasAsChild(other))
         return true;
 
     return false;
