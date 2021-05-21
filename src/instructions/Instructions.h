@@ -40,7 +40,6 @@
 #include "RegisterAccessor.h"
 #include "SetAccumulator.h"
 #include "SetRegister.h"
-#include "SquareRootAcc.h"
 #include "StackAccessor.h"
 
 #endif // INSTRUCTIONS_H

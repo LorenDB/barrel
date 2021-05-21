@@ -60,7 +60,6 @@ add_executable(barrel
     src/instructions/RegisterAccessor.cpp
     src/instructions/SetAccumulator.cpp
     src/instructions/SetRegister.cpp
-    src/instructions/SquareRootAcc.cpp
     src/instructions/StackAccessor.cpp
 
     ${TS_FILES}
