@@ -27,7 +27,7 @@ QVariant Loop::exec(ExecRole role)
     else
     {
         // make sure we only bother calculating the times once per execution
-        auto times = m_times->exec().toInt();
+        auto times = m_times->exec(NumericalValue).toInt();
 
         for (int i = 0; i < times; ++i)
             ret = m_body->exec();
