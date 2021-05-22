@@ -15,7 +15,7 @@ public:
         Forwards,
     };
 
-    JumpStatement(InstructionNode *spaces, Direction direction, BarrelParser &parser);
+    JumpStatement(InstructionNode *spaces, Direction direction, bool push, BarrelParser &parser);
     ~JumpStatement();
 
     QVariant exec(ExecRole role = Default) override;
@@ -27,6 +27,7 @@ signals:
 private:
     InstructionNode *m_spacesToJump;
     Direction m_direction;
+    bool m_push;
 };
 
 #endif // JUMPSTATEMENT_H

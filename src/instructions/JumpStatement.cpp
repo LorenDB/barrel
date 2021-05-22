@@ -1,9 +1,10 @@
 #include "JumpStatement.h"
 
-JumpStatement::JumpStatement(InstructionNode *spaces, Direction direction, BarrelParser &parser)
+JumpStatement::JumpStatement(InstructionNode *spaces, Direction direction, bool push, BarrelParser &parser)
     : InstructionNode{parser},
       m_spacesToJump{spaces},
-      m_direction{direction}
+      m_direction{direction},
+      m_push{push}
 {
 }
 
@@ -14,6 +15,9 @@ JumpStatement::~JumpStatement()
 
 QVariant JumpStatement::exec(ExecRole role)
 {
+    if (m_push)
+        m_parser->pushLocationPointer(this);
+
     auto spaces = m_spacesToJump->exec(NumericalValue).toInt();
 
     // if jumping backwards, make sure to use a negative direction

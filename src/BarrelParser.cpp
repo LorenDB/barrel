@@ -322,26 +322,16 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
         else if (command == L'←' || command == L'↰')
         {
             if (command == L'←')
-            {
-                auto chain = new InstructionChain{*this};
-                chain->addNode(new PushLocationPointer{*this});
-                chain->addNode(new JumpStatement{number, JumpStatement::Backwards, *this});
-                return chain;
-            }
+                return new JumpStatement{number, JumpStatement::Backwards, true, *this};
             else
-                return new JumpStatement{number, JumpStatement::Backwards, *this};
+                return new JumpStatement{number, JumpStatement::Backwards, false, *this};
         }
         else if (command == L'→' || command == L'↱')
         {
             if (command == L'→')
-            {
-                auto chain = new InstructionChain{*this};
-                chain->addNode(new PushLocationPointer{*this});
-                chain->addNode(new JumpStatement{number, JumpStatement::Forwards, *this});
-                return chain;
-            }
+                return new JumpStatement{number, JumpStatement::Forwards, true, *this};
             else
-                return new JumpStatement{number, JumpStatement::Forwards, *this};
+                return new JumpStatement{number, JumpStatement::Forwards, false, *this};
         }
         else if (command == '^')
             return new SetAccumulator{number, *this};
@@ -349,8 +339,7 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
             return new PushToStack{number, *this};
         else if (command == '&')
         {
-            if (input[0] != ':')
-                ; // TODO: CRASH AND BURN
+            assert (input[0] == ':');
 
             input.remove(0, 1);
             auto val = getInstructionNode(input);
