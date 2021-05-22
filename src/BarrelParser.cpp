@@ -201,7 +201,7 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
     else if (input[0] == '@')
     {
         input.remove(0, 1);
-        auto number = getNumberNode(input);
+        auto number = getInstructionNode(input);
         return new RegisterAccessor{number, *this};
     }
     else if (input[0] == L'¯')
@@ -217,49 +217,49 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
     else if (input[0] == '=')
     {
         input.remove(0, 1);
-        auto number = getNumberNode(input);
+        auto number = getInstructionNode(input);
         return new EqualTo{number, *this};
     }
     else if (input[0] == L'≈')
     {
         input.remove(0, 1);
-        auto number = getNumberNode(input);
+        auto number = getInstructionNode(input);
         return new FuzzyEqualTo{number, *this};
     }
     else if (input[0] == L'≠')
     {
         input.remove(0, 1);
-        auto number = getNumberNode(input);
+        auto number = getInstructionNode(input);
         return new NotEqualTo{number, *this};
     }
     else if (input[0] == L'≉')
     {
         input.remove(0, 1);
-        auto number = getNumberNode(input);
+        auto number = getInstructionNode(input);
         return new FuzzyNotEqualTo{number, *this};
     }
     else if (input[0] == '>')
     {
         input.remove(0, 1);
-        auto number = getNumberNode(input);
+        auto number = getInstructionNode(input);
         return new GreaterThan{number, *this};
     }
     else if (input[0] == '<')
     {
         input.remove(0, 1);
-        auto number = getNumberNode(input);
+        auto number = getInstructionNode(input);
         return new LessThan{number, *this};
     }
     else if (input[0] == L'≥')
     {
         input.remove(0, 1);
-        auto number = getNumberNode(input);
+        auto number = getInstructionNode(input);
         return new GreaterThanEqualTo{number, *this};
     }
     else if (input[0] == L'≤')
     {
         input.remove(0, 1);
-        auto number = getNumberNode(input);
+        auto number = getInstructionNode(input);
         return new LessThanEqualTo{number, *this};
     }
     else if (m_numericShortcuts.keys().contains(input.at(0)))
@@ -311,7 +311,7 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
         auto command = input.at(0); // save the command so we don't lose it due to the input string
                                     // chomping
         input.remove(0, 1);
-        auto number = getNumberNode(input);
+        auto number = getInstructionNode(input);
 
         // parse the command
         if (command == '#')
@@ -353,7 +353,7 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
                 ; // TODO: CRASH AND BURN
 
             input.remove(0, 1);
-            auto val = getNumberNode(input);
+            auto val = getInstructionNode(input);
             return new SetRegister{number, val, *this};
         }
         else if (command == L'×')
@@ -432,119 +432,13 @@ InstructionNode *BarrelParser::getInstructionNode(QString &input)
         return new ExitStatement{*this};
     }
 
-    else // implicitly print unknown characters
+    // implicitly print unknown characters, or alternately uses them as a numeric value where needed
+    else
     {
         auto val = input.at(0);
         input.remove(0, 1);
-        return new BarrelString{val, *this};
+        return new UnknownInstruction{val, *this};
     }
-}
-
-// TODO: this contains a lot of stuff that is duplicated; it'd be nice to move everything here back
-// into getInstructionNode (this should be feasable, although it could make for some fascinating
-// runtime and/or logic errors)
-InstructionNode *BarrelParser::getNumberNode(QString &input)
-{
-    if (input[0] == 'a')
-    {
-        input.remove(0, 1);
-        return new AccumulatorAccessor{*this};
-    }
-    else if (input[0] == L'∞')
-    {
-        input.remove(0, 1);
-        return new Infinity{*this};
-    }
-    else if (input[0] == '@')
-    {
-        input.remove(0, 1);
-        auto number = getNumberNode(input);
-        return new RegisterAccessor{number, *this};
-    }
-    else if (input[0] == L'¯')
-    {
-        input.remove(0, 1);
-        return new StackAccessor{*this};
-    }
-    else if (input[0] == L'′')
-    {
-        input.remove(0, 1);
-        return new PrimalityTest{new AccumulatorAccessor{*this}, *this};
-    }
-    else if (input[0] == '=')
-    {
-        input.remove(0, 1);
-        auto number = getNumberNode(input);
-        return new EqualTo{number, *this};
-    }
-    else if (input[0] == L'≈')
-    {
-        input.remove(0, 1);
-        auto number = getNumberNode(input);
-        return new FuzzyEqualTo{number, *this};
-    }
-    else if (input[0] == L'≠')
-    {
-        input.remove(0, 1);
-        auto number = getNumberNode(input);
-        return new NotEqualTo{number, *this};
-    }
-    else if (input[0] == L'≉')
-    {
-        input.remove(0, 1);
-        auto number = getNumberNode(input);
-        return new FuzzyNotEqualTo{number, *this};
-    }
-    else if (input[0] == '>')
-    {
-        input.remove(0, 1);
-        auto number = getNumberNode(input);
-        return new GreaterThan{number, *this};
-    }
-    else if (input[0] == '<')
-    {
-        input.remove(0, 1);
-        auto number = getNumberNode(input);
-        return new LessThan{number, *this};
-    }
-    else if (input[0] == L'≥')
-    {
-        input.remove(0, 1);
-        auto number = getNumberNode(input);
-        return new GreaterThanEqualTo{number, *this};
-    }
-    else if (input[0] == L'≤')
-    {
-        input.remove(0, 1);
-        auto number = getNumberNode(input);
-        return new LessThanEqualTo{number, *this};
-    }
-    else if (m_numericShortcuts.keys().contains(input.at(0)))
-    {
-        auto num = input.at(0);
-        input.remove(0, 1);
-        return new Number{m_numericShortcuts.value(num), *this};
-    }
-
-    QString numString;
-
-    // get the whole number in string format
-    for (int i = 0; i < input.length() && (input[i].isDigit() || input[i] == '.'); ++i)
-        numString.append(input[i]);
-
-    // verify that this can be numberified
-    bool gotDouble = false;
-    numString.toDouble(&gotDouble);
-    if (!gotDouble)
-    {
-        auto val = input.at(0);
-        input.remove(0, 1);
-        // return the char's codepoint
-        return new Number{static_cast<double>(val.toLatin1()), *this};
-    }
-
-    input.remove(0, numString.length());
-    return new Number{numString.toDouble(), *this};
 }
 
 template<typename T> void BarrelParser::print(const T &itemToPrint)
@@ -571,6 +465,13 @@ void BarrelParser::print(const char &itemToPrint)
 void BarrelParser::print(const QString &itemToPrint)
 {
     std::cout << itemToPrint.toStdString();
+    std::cout.flush(); // make sure to print
+    m_hasOutputThisRound = true;
+}
+
+void BarrelParser::print(const QChar &itemToPrint)
+{
+    std::cout << itemToPrint.toLatin1();
     std::cout.flush(); // make sure to print
     m_hasOutputThisRound = true;
 }

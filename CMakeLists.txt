@@ -61,6 +61,7 @@ add_executable(barrel
     src/instructions/SetAccumulator.cpp
     src/instructions/SetRegister.cpp
     src/instructions/StackAccessor.cpp
+    src/instructions/UnknownInstruction.cpp
 
     ${TS_FILES}
 )

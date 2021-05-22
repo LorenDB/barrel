@@ -41,5 +41,6 @@
 #include "SetAccumulator.h"
 #include "SetRegister.h"
 #include "StackAccessor.h"
+#include "UnknownInstruction.h"
 
 #endif // INSTRUCTIONS_H

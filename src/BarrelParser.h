@@ -28,8 +28,9 @@ public:
     void print(const double &itemToPrint);
     void print(const char &itemToPrint);
 
-    // convenience function
+    // convenience functions
     void print(const QString &itemToPrint);
+    void print(const QChar &itemToPrint);
 
     double getInput();
 
@@ -58,9 +59,6 @@ signals:
 private:
     InstructionChain *parseToInstructionChain(const QString &input);
     InstructionNode *getInstructionNode(QString &input);
-
-    //! This will properly handle special number representatives.
-    InstructionNode *getNumberNode(QString &string);
 
     InstructionChain *m_instructionChain = nullptr;
 
